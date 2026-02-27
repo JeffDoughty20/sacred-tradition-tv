@@ -186,6 +186,110 @@
   color: var(--text-muted);
 }
 
+/* ===== Donation ===== */
+.donation {
+  padding: 2rem 2rem 1rem;
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 1.5s ease-out 0.5s both;
+}
+
+.donationCard {
+  background: linear-gradient(180deg, var(--burgundy-dark) 0%, var(--burgundy) 100%);
+  border: 1px solid rgba(212, 165, 74, 0.3);
+  border-radius: 2px;
+  padding: 3rem;
+  text-align: center;
+  box-shadow:
+    0 2px 8px rgba(107, 28, 42, 0.15),
+    0 12px 40px rgba(107, 28, 42, 0.1);
+}
+
+.donationIcon {
+  display: block;
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.donationTitle {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  margin-bottom: 1.25rem;
+}
+
+.donationText {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--cream);
+  max-width: 600px;
+  margin: 0 auto 1rem;
+  opacity: 0.92;
+}
+
+.donationButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0 1.5rem;
+}
+
+.donateButton {
+  display: inline-block;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--burgundy-dark);
+  background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  padding: 0.85rem 3rem;
+  border: none;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(212, 165, 74, 0.3);
+}
+
+.donateButton:hover {
+  background: linear-gradient(180deg, #F0D88A 0%, var(--gold-light) 100%);
+  box-shadow: 0 4px 16px rgba(212, 165, 74, 0.4);
+  transform: translateY(-1px);
+}
+
+.donateButtonOutline {
+  display: inline-block;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold);
+  background: transparent;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  padding: 0.7rem 2.5rem;
+  border: 1px solid rgba(212, 165, 74, 0.5);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.donateButtonOutline:hover {
+  border-color: var(--gold);
+  background: rgba(212, 165, 74, 0.1);
+}
+
+.donationNote {
+  font-size: 0.8rem;
+  color: var(--cream);
+  opacity: 0.55;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+}
+
 /* ===== Signup ===== */
 .signup {
   padding: 3rem 2rem 4rem;
@@ -292,5 +396,19 @@
   .features {
     grid-template-columns: 1fr;
     gap: 1rem;
+  }
+
+  .donationCard {
+    padding: 2rem 1.5rem;
+  }
+
+  .donateButton {
+    width: 100%;
+    text-align: center;
+  }
+
+  .donateButtonOutline {
+    width: 100%;
+    text-align: center;
   }
 }
