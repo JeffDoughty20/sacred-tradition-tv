@@ -1,0 +1,35 @@
+:root {
+  --burgundy: #6B1C2A;
+  --burgundy-dark: #4A1320;
+  --burgundy-light: #8B2E3E;
+  --gold: #D4A54A;
+  --gold-light: #E8C97A;
+  --gold-dark: #B8942E;
+  --cream: #FDF8F0;
+  --cream-dark: #F5EDE0;
+  --text-dark: #2C1810;
+  --text-muted: #8B7355;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--burgundy);
+  color: var(--cream);
+}
