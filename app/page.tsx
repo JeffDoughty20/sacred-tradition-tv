@@ -8,12 +8,11 @@ export default function Home() {
 
       {/* Hero section */}
       <section className={styles.hero}>
-        <div className={styles.cross}>✠</div>
-        <h1 className={styles.title}>
-          <span className={styles.titleSacred}>Sacred</span>
-          <span className={styles.titleTradition}>Tradition</span>
-          <span className={styles.titleTV}>.TV</span>
-        </h1>
+        <img
+          src="/logo.png"
+          alt="Sacred Tradition Television"
+          className={styles.logo}
+        />
         <div className={styles.divider}>
           <span className={styles.dividerLine} />
           <span className={styles.dividerCross}>✦</span>
