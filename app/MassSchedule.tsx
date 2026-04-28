@@ -17,7 +17,7 @@ interface Channel {
 const DEFAULT_CHANT: Channel = {
   name: 'Gregorian Chant — Eucharistic Adoration',
   subtitle: 'Sacred Tradition Television',
-  videoId: 'j1kpgKvsuDY',
+  videoId: 't8X34t77c-U',
   utcHour: 0, utcMinute: 0,
   isLive: false,
 }
@@ -34,13 +34,13 @@ const latinMass: Channel[] = [
 ]
 
 const chantAndRosary: Channel[] = [
-  { name: 'Gregorian Chant — Adoration', subtitle: 'Eucharistic Worship', videoId: 'j1kpgKvsuDY', utcHour: 0, utcMinute: 0, isLive: false },
+  { name: 'Gregorian Chant — Adoration', subtitle: 'Eucharistic Worship', videoId: 't8X34t77c-U', utcHour: 0, utcMinute: 0, isLive: false },
   { name: 'SSPX Seminary — Rosary', subtitle: 'Daily at 4:00 PM ET', channelId: 'UCZoB5_BphShGRovMZ2AsG5A', utcHour: 20, utcMinute: 0, isLive: true },
-  { name: 'Holy Silence & Chant', subtitle: 'Eucharistic Presence', videoId: 'SU7cOP-WRVw', utcHour: 0, utcMinute: 0, isLive: false },
+  { name: 'Monastic Chant — Adoration', subtitle: 'Before the Blessed Sacrament', videoId: 'utbPq43cryg', utcHour: 0, utcMinute: 0, isLive: false },
   { name: 'SSPX Paris — Chapelet', subtitle: 'Daily Rosary', channelId: 'UCGNiUjfJu2KOf71MKz86z7A', utcHour: 15, utcMinute: 45, isLive: true },
-  { name: 'Chant for Adoration', subtitle: 'Prayer & Healing', videoId: 'RI3j-FK9u3o', utcHour: 0, utcMinute: 0, isLive: false },
+  { name: 'Chant — Peaceful Adoration', subtitle: 'Eucharistic Stillness', videoId: '1wHpLowoJsc', utcHour: 0, utcMinute: 0, isLive: false },
   { name: 'Silverstream Priory', subtitle: 'Divine Office', channelId: 'UCpnItyslD0BqEOYBbTRy35w', utcHour: 19, utcMinute: 30, isLive: true },
-  { name: 'Gregorian Chant — Catholic Prayer', subtitle: 'Adoration Music', videoId: '1FoQlHFzqw4', utcHour: 0, utcMinute: 0, isLive: false },
+  { name: 'Divine Mercy Chants', subtitle: 'Healing Adoration', videoId: '57ufwhIe0M8', utcHour: 0, utcMinute: 0, isLive: false },
 ]
 
 const vaticanLive: Channel[] = [
