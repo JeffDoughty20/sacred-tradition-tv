@@ -43,7 +43,8 @@
   text-decoration: none;
   border-bottom: 1px solid rgba(232, 213, 168, 0.5);
   transition: all 0.25s ease;
-  background: transparent;
+  background: rgba(253, 248, 240, 0.85);
+  cursor: pointer;
 }
 
 .massRow:first-child {
@@ -55,16 +56,16 @@
 }
 
 .massRowLive {
-  background: rgba(107, 28, 42, 0.06);
+  background: rgba(107, 28, 42, 0.1);
   border-left: 3px solid var(--burgundy);
 }
 
 .massRowLive:hover {
-  background: rgba(107, 28, 42, 0.1);
+  background: rgba(107, 28, 42, 0.15);
 }
 
 .massRowUpcoming {
-  background: rgba(201, 149, 58, 0.04);
+  background: rgba(201, 149, 58, 0.1);
 }
 
 .massTimeCol {
@@ -76,9 +77,9 @@
 
 .massLocalTime {
   font-family: 'Cormorant Garamond', 'Georgia', serif;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  color: var(--burgundy);
+  color: #3A0E18;
 }
 
 .liveBadge {
@@ -135,16 +136,16 @@
 
 .massName {
   font-family: 'Cormorant Garamond', 'Georgia', serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--text-dark);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1A0A06;
 }
 
 .massParish {
   font-family: 'EB Garamond', 'Georgia', serif;
-  font-size: 0.85rem;
-  color: var(--brown-light);
-  opacity: 0.7;
+  font-size: 0.9rem;
+  color: #4A3018;
+  opacity: 0.85;
 }
 
 .massTypeCol {
@@ -164,6 +165,14 @@
   text-align: right;
 }
 
+.liveTitle {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.8rem;
+  color: #c0392b;
+  font-style: italic;
+  margin-top: 0.15rem;
+}
+
 .watchBtn {
   font-family: 'Cormorant Garamond', 'Georgia', serif;
   font-size: 0.85rem;
@@ -173,14 +182,79 @@
   transition: opacity 0.25s;
 }
 
+.watchBtnLive {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #c0392b;
+  opacity: 1;
+}
+
 .massRow:hover .watchBtn {
   opacity: 1;
 }
 
-.massRowLive .watchBtn {
-  opacity: 1;
-  color: #c0392b;
+/* ===== Live Player ===== */
+.livePlayer {
+  margin-bottom: 1.5rem;
+  border: 2px solid #c0392b;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(192, 57, 43, 0.15);
+}
+
+.livePlayerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: #c0392b;
+}
+
+.livePlayerBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 0.85rem;
   font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.livePlayerClose {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.2rem 0.75rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.livePlayerClose:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+.videoFrame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .browseAll {

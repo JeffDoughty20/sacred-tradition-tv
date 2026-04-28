@@ -26,18 +26,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Coming Soon banner */}
-      <section className={styles.banner}>
-        <div className={styles.bannerBorder}>
-          <span className={styles.bannerCross}>✠</span>
-          <h2 className={styles.bannerTitle}>Coming Soon</h2>
-          <p className={styles.bannerText}>
-            Sacred Tradition TV is preparing to bring the beauty and reverence of the
-            Traditional Latin Mass and timeless Catholic devotions directly into your home.
-          </p>
-        </div>
-      </section>
-
       {/* Mass Schedule */}
       <section className={styles.schedule}>
         <div className={styles.sectionHeader}>
