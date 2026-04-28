@@ -1,49 +1,79 @@
-/* ===== Layout ===== */
-.main {
-  min-height: 100vh;
+/* ===== Variables ===== */
+:root {
+  --burgundy: #6B1C2A;
+  --burgundy-dark: #4A1320;
+  --burgundy-deep: #3A0E18;
+  --gold: #C9953A;
+  --gold-light: #D4A54A;
+  --gold-pale: #E8D5A8;
+  --cream: #FDF8F0;
+  --cream-dark: #F0E6D0;
+  --parchment: #EDE0C8;
+  --brown: #4A3018;
+  --brown-light: #7D532E;
+  --text-dark: #2E1909;
+}
+
+/* ===== Page ===== */
+.page {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
+  background-color: var(--cream);
   position: relative;
   overflow: hidden;
 }
 
-.main::before {
-  content: '';
+/* ===== Watermark ===== */
+.watermark {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(107, 28, 42, 0.04) 0%, transparent 60%),
-    radial-gradient(ellipse at 50% 100%, rgba(212, 165, 74, 0.03) 0%, transparent 50%);
+  top: 50%;
+  left: 50%;
+  width: 800px;
+  height: 800px;
+  transform: translate(-50%, -50%);
+  background-image: url('/watermark.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   pointer-events: none;
   z-index: 0;
+  opacity: 0.5;
 }
 
-.topBorder, .bottomBorder {
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, transparent, var(--burgundy), var(--gold), var(--burgundy), transparent);
-  flex-shrink: 0;
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gentlePulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
 }
 
 /* ===== Hero ===== */
 .hero {
-  padding: 3rem 2rem 2rem;
+  padding: 2.5rem 2rem 1.5rem;
   text-align: center;
   position: relative;
   z-index: 1;
-  animation: fadeIn 1.5s ease-out;
+  animation: fadeIn 2s ease-out;
 }
 
 .logo {
-  width: clamp(280px, 50vw, 450px);
+  width: clamp(280px, 45vw, 420px);
   height: auto;
   margin: 0 auto;
   display: block;
-  filter: drop-shadow(0 2px 8px rgba(107, 28, 42, 0.08));
+  filter: drop-shadow(0 4px 12px rgba(74, 19, 32, 0.12));
+  border-radius: 4px;
 }
 
 .divider {
@@ -51,109 +81,122 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  margin: 2rem 0 1.5rem;
-  width: 100%;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 1.5rem 0 0.75rem;
 }
 
 .dividerLine {
-  flex: 1;
+  width: clamp(60px, 15vw, 140px);
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 
 .dividerCross {
   color: var(--gold);
-  font-size: 0.75rem;
+  font-size: 0.9rem;
 }
 
 .tagline {
   font-family: 'EB Garamond', 'Georgia', serif;
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
   font-style: italic;
-  color: var(--text-muted);
-  letter-spacing: 0.2em;
+  color: var(--brown-light);
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  font-weight: 400;
+  opacity: 0.8;
 }
 
-/* ===== Content Card ===== */
-.content {
-  padding: 2rem 2rem 3rem;
+/* ===== Banner ===== */
+.banner {
   width: 100%;
-  max-width: 900px;
+  max-width: 800px;
+  padding: 0 2rem;
+  margin: 1rem 0;
   position: relative;
   z-index: 1;
   animation: fadeInUp 1.5s ease-out 0.3s both;
 }
 
-.card {
-  background: linear-gradient(180deg, #FFFFFF 0%, var(--cream) 100%);
-  border: 1px solid rgba(212, 165, 74, 0.25);
-  border-radius: 2px;
-  padding: 3rem 3rem 2.5rem;
-  text-align: center;
-  box-shadow:
-    0 1px 3px rgba(107, 28, 42, 0.04),
-    0 8px 30px rgba(107, 28, 42, 0.03);
-}
-
-.cardTitle {
-  font-family: 'Cormorant Garamond', 'Georgia', serif;
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--burgundy);
-  letter-spacing: 0.1em;
-  margin-bottom: 1rem;
-}
-
-.cardText {
-  font-size: 1.15rem;
-  line-height: 1.8;
-  color: var(--text-dark);
-  max-width: 640px;
-  margin: 0 auto 2.5rem;
-}
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
-  margin-top: 1rem;
-}
-
-.feature {
-  padding: 1.5rem 1rem;
-  border-top: 1px solid rgba(212, 165, 74, 0.2);
-}
-
-.featureIcon {
+.bannerCross {
   display: block;
-  font-size: 1.5rem;
+  text-align: center;
+  font-size: 1.2rem;
   color: var(--gold);
   margin-bottom: 0.75rem;
 }
 
-.feature h3 {
+.bannerTitle {
   font-family: 'Cormorant Garamond', 'Georgia', serif;
-  font-size: 1.2rem;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
   font-weight: 600;
   color: var(--burgundy);
+  text-align: center;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.75rem;
+}
+
+.bannerText {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-dark);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0.85;
+}
+
+/* ===== Section Headers ===== */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
   margin-bottom: 0.5rem;
-  letter-spacing: 0.05em;
 }
 
-.feature p {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--text-muted);
+.headerLine {
+  width: clamp(40px, 10vw, 100px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 
-/* ===== Donation ===== */
-.donation {
-  padding: 2rem 2rem 1rem;
+.headerLineLight {
+  width: clamp(40px, 10vw, 100px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-pale), transparent);
+}
+
+.sectionTitle {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 600;
+  color: var(--burgundy);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.sectionTitleLight {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 600;
+  color: var(--gold-light);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.sectionSubtitle {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--brown-light);
+  text-align: center;
+  margin-bottom: 2rem;
+  opacity: 0.75;
+}
+
+/* ===== Mass Schedule ===== */
+.schedule {
+  padding: 2.5rem 2rem;
   width: 100%;
   max-width: 900px;
   position: relative;
@@ -161,11 +204,260 @@
   animation: fadeInUp 1.5s ease-out 0.5s both;
 }
 
+.massGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.massCard {
+  background: rgba(253, 248, 240, 0.85);
+  border: 1px solid var(--gold-pale);
+  border-radius: 2px;
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.massCard:hover {
+  border-color: var(--gold);
+  box-shadow: 0 4px 16px rgba(201, 149, 58, 0.12);
+  transform: translateY(-2px);
+}
+
+.massCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 2px;
+  background: var(--gold);
+}
+
+.massIcon {
+  font-size: 1.3rem;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+
+.massIconHighlight {
+  font-size: 1.3rem;
+  color: var(--burgundy);
+  margin-bottom: 0.75rem;
+}
+
+.massTime {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--burgundy);
+  margin-bottom: 0.25rem;
+}
+
+.massType {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.massDesc {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+  opacity: 0.75;
+}
+
+.scheduleNote {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--brown-light);
+  text-align: center;
+  margin-top: 1.25rem;
+  opacity: 0.6;
+}
+
+/* ===== Devotions ===== */
+.devotions {
+  width: 100%;
+  background: linear-gradient(180deg, var(--burgundy-deep) 0%, var(--burgundy-dark) 50%, var(--burgundy-deep) 100%);
+  position: relative;
+  z-index: 1;
+  margin: 1.5rem 0;
+  padding: 3rem 0;
+  border-top: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+}
+
+.devotions::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/watermark.png');
+  background-size: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.devotionsInner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+}
+
+.devotionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.devotionCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 165, 74, 0.2);
+  border-radius: 2px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.devotionCard:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(212, 165, 74, 0.35);
+}
+
+.devotionIcon {
+  font-size: 1.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.devotionTitle {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.devotionTime {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.1rem;
+  color: var(--gold-pale);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.devotionDesc {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--cream);
+  opacity: 0.8;
+}
+
+/* ===== Gregorian Chant ===== */
+.chant {
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+  z-index: 1;
+}
+
+.chantSubtitle {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--brown-light);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  opacity: 0.75;
+}
+
+.chantCard {
+  background: rgba(253, 248, 240, 0.85);
+  border: 1px solid var(--gold-pale);
+  border-radius: 2px;
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.chantCard::before,
+.chantCard::after {
+  content: '~';
+  position: absolute;
+  font-family: 'Georgia', serif;
+  font-size: 2rem;
+  color: var(--gold-pale);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.chantCard::before { left: 1rem; }
+.chantCard::after { right: 1rem; }
+
+.chantNeumes {
+  font-size: 1.2rem;
+  color: var(--gold);
+  letter-spacing: 0.5em;
+  margin-bottom: 1rem;
+  animation: gentlePulse 4s ease-in-out infinite;
+}
+
+.chantText {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-dark);
+  max-width: 600px;
+  margin: 0 auto 1.25rem;
+  opacity: 0.8;
+}
+
+.chantBadge {
+  display: inline-block;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid var(--gold-pale);
+  padding: 0.4rem 1.5rem;
+  border-radius: 2px;
+}
+
+/* ===== Donation ===== */
+.donation {
+  padding: 1.5rem 2rem 1rem;
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+  z-index: 1;
+}
+
 .donationCard {
   background: linear-gradient(180deg, var(--burgundy-dark) 0%, var(--burgundy) 100%);
   border: 1px solid rgba(212, 165, 74, 0.3);
   border-radius: 2px;
-  padding: 3rem;
+  padding: 2.5rem;
   text-align: center;
   box-shadow:
     0 2px 8px rgba(107, 28, 42, 0.15),
@@ -174,47 +466,45 @@
 
 .donationIcon {
   display: block;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: var(--gold);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .donationTitle {
   font-family: 'Cormorant Garamond', 'Georgia', serif;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 600;
   color: var(--gold);
   letter-spacing: 0.1em;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .donationText {
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.8;
   color: var(--cream);
-  max-width: 600px;
-  margin: 0 auto 1rem;
-  opacity: 0.92;
+  max-width: 560px;
+  margin: 0 auto 0.75rem;
+  opacity: 0.9;
 }
 
 .donationButtons {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin: 2rem 0 1.5rem;
+  justify-content: center;
+  margin: 1.5rem 0 1rem;
 }
 
 .donateButton {
   display: inline-block;
   font-family: 'Cormorant Garamond', 'Georgia', serif;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--burgundy-dark);
   background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
   text-decoration: none;
   letter-spacing: 0.08em;
-  padding: 0.85rem 3rem;
+  padding: 0.8rem 2.5rem;
   border: none;
   border-radius: 2px;
   transition: all 0.3s ease;
@@ -227,144 +517,124 @@
   transform: translateY(-1px);
 }
 
-.donateButtonOutline {
-  display: inline-block;
-  font-family: 'Cormorant Garamond', 'Georgia', serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--gold);
-  background: transparent;
-  text-decoration: none;
-  letter-spacing: 0.08em;
-  padding: 0.7rem 2.5rem;
-  border: 1px solid rgba(212, 165, 74, 0.5);
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-.donateButtonOutline:hover {
-  border-color: var(--gold);
-  background: rgba(212, 165, 74, 0.1);
-}
-
 .donationNote {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--cream);
-  opacity: 0.55;
+  opacity: 0.5;
   line-height: 1.6;
   letter-spacing: 0.03em;
 }
 
 /* ===== Signup ===== */
 .signup {
-  padding: 3rem 2rem 4rem;
+  padding: 2rem 2rem 1.5rem;
   text-align: center;
   position: relative;
   z-index: 1;
-  animation: fadeInUp 1.5s ease-out 0.6s both;
 }
 
 .signupText {
-  font-size: 1.15rem;
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 1.1rem;
   font-style: italic;
-  line-height: 1.8;
-  color: var(--text-dark);
-  max-width: 550px;
-  margin: 0 auto 1rem;
+  color: var(--brown-light);
+  max-width: 500px;
+  margin: 0 auto 0.5rem;
+  line-height: 1.7;
 }
 
 .signupCta {
-  font-size: 1rem;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-  letter-spacing: 0.05em;
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  opacity: 0.7;
 }
 
 .emailLink {
-  display: inline-block;
   font-family: 'Cormorant Garamond', 'Georgia', serif;
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.1rem;
   color: var(--burgundy);
   text-decoration: none;
-  letter-spacing: 0.05em;
-  padding: 0.75rem 2.5rem;
-  border: 1px solid var(--burgundy);
+  border: 1px solid var(--gold-pale);
+  padding: 0.65rem 2rem;
+  border-radius: 2px;
   transition: all 0.3s ease;
+  letter-spacing: 0.03em;
 }
 
 .emailLink:hover {
-  background-color: var(--burgundy);
-  color: var(--cream);
+  border-color: var(--gold);
+  background: rgba(201, 149, 58, 0.06);
 }
 
 /* ===== Footer ===== */
 .footer {
-  padding: 3rem 2rem 2rem;
+  padding: 2rem 2rem 2.5rem;
   text-align: center;
   position: relative;
   z-index: 1;
-  margin-top: auto;
 }
 
 .footerCross {
+  font-size: 1rem;
   color: var(--gold);
-  font-size: 1.25rem;
-  margin-bottom: 0.75rem;
-}
-
-.footerText {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  letter-spacing: 0.1em;
   margin-bottom: 0.5rem;
 }
 
-.footerOrg {
-  font-size: 0.8rem;
-  color: var(--text-muted);
+.footerMotto {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.9rem;
+  color: var(--brown-light);
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.08em;
   opacity: 0.7;
-  letter-spacing: 0.05em;
 }
 
-/* ===== Animations ===== */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.footerCopy {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.75rem;
+  color: var(--brown-light);
+  opacity: 0.45;
 }
 
 /* ===== Responsive ===== */
-@media (max-width: 640px) {
-  .hero {
-    padding: 3.5rem 1.5rem 2rem;
-  }
-
-  .card {
-    padding: 2rem 1.5rem;
-  }
-
-  .features {
+@media (max-width: 768px) {
+  .massGrid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
 
+  .devotionGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .chantCard::before,
+  .chantCard::after {
+    display: none;
+  }
+
+  .watermark {
+    width: 500px;
+    height: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 2rem 1.5rem 1rem;
+  }
+
+  .schedule,
+  .chant,
+  .donation {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
   .donationCard {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.25rem;
   }
 
   .donateButton {
@@ -372,8 +642,12 @@
     text-align: center;
   }
 
-  .donateButtonOutline {
-    width: 100%;
-    text-align: center;
+  .sectionHeader {
+    gap: 0.75rem;
+  }
+
+  .watermark {
+    width: 350px;
+    height: 350px;
   }
 }
