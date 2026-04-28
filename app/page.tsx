@@ -58,20 +58,20 @@ export default function Home() {
               A quiet, contemplative offering of the Holy Sacrifice to begin the day in prayer
             </p>
           </div>
+          <div className={styles.massCard}>
+            <div className={styles.massCardAccent} />
+            <div className={styles.massIcon}>☩</div>
+            <h3 className={styles.massTime}>9:00 AM</h3>
+            <div className={styles.massDivider} />
+            <p className={styles.massType}>Sung Mass</p>
+            <p className={styles.massDesc}>
+              The Missa Cantata with Gregorian propers and sacred polyphony
+            </p>
+          </div>
           <div className={styles.massCardFeatured}>
             <div className={styles.massCardAccentGold} />
             <div className={styles.massIconFeatured}>☩</div>
             <h3 className={styles.massTime}>12:00 PM</h3>
-            <div className={styles.massDivider} />
-            <p className={styles.massType}>Sung Mass</p>
-            <p className={styles.massDesc}>
-              The midday Missa Cantata with Gregorian propers and sacred polyphony
-            </p>
-          </div>
-          <div className={styles.massCard}>
-            <div className={styles.massCardAccent} />
-            <div className={styles.massIcon}>☩</div>
-            <h3 className={styles.massTime}>6:00 PM</h3>
             <div className={styles.massDivider} />
             <p className={styles.massType}>Solemn High Mass</p>
             <p className={styles.massDesc}>
@@ -81,6 +81,31 @@ export default function Home() {
         </div>
         <p className={styles.scheduleNote}>
           All times Eastern &middot; Schedule subject to change on Holy Days of Obligation
+        </p>
+      </section>
+
+      {/* Live Stream */}
+      <section className={styles.livestream}>
+        <div className={styles.sectionHeader}>
+          <span className={styles.headerOrnament}>❧</span>
+          <h2 className={styles.sectionTitle}>Watch Live</h2>
+          <span className={styles.headerOrnamentFlip}>❧</span>
+        </div>
+        <p className={styles.sectionSubtitle}>
+          Solemn High Mass &middot; 12:00 PM Eastern
+        </p>
+        <div className={styles.videoWrapper}>
+          <iframe
+            src="https://www.youtube.com/embed/9sdEb-5laaw"
+            title="Solemn High Mass - Sacred Tradition TV"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className={styles.videoFrame}
+          />
+        </div>
+        <p className={styles.streamNote}>
+          Live from the altar &middot; Join us daily for the Holy Sacrifice of the Mass
         </p>
       </section>
 
