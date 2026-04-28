@@ -19,50 +19,165 @@
 .tvOffContent { text-align: center; }
 .tvOffCross { font-size: 1.5rem; color: var(--gold); margin-bottom: 0.5rem; }
 .tvOffTitle { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--cream); margin-bottom: 0.5rem; letter-spacing: 0.05em; }
-.tvOffSub { font-family: 'EB Garamond', Georgia, serif; font-size: 0.9rem; color: var(--gold-pale); opacity: 0.7; }
+.tvOffSub { font-family: 'EB Garamond', Georgia, serif; font-size: 0.95rem; color: var(--gold-pale); opacity: 0.7; }
+.tvOffTz { font-family: 'EB Garamond', Georgia, serif; font-size: 0.8rem; color: var(--gold-pale); opacity: 0.4; margin-top: 0.5rem; }
 
 .tvInfoBar { display: flex; align-items: center; gap: 1rem; padding: 0.5rem 1rem; background: #1A0A06; border-top: 1px solid rgba(201,149,58,0.2); }
 .tvInfoName { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem; font-weight: 700; color: var(--gold); }
 .tvInfoSub { font-family: 'EB Garamond', Georgia, serif; font-size: 0.8rem; color: var(--gold-pale); opacity: 0.6; flex: 1; }
-.tvClose { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.75rem; color: rgba(255,255,255,0.6); background: none; border: 1px solid rgba(255,255,255,0.2); padding: 0.15rem 0.6rem; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
-.tvClose:hover { color: #fff; border-color: rgba(255,255,255,0.5); }
+.tvClose { font-size: 1rem; color: rgba(255,255,255,0.5); background: none; border: none; cursor: pointer; padding: 0.25rem 0.5rem; transition: color 0.2s; }
+.tvClose:hover { color: #fff; }
 
 /* ===== Row Sections ===== */
 .rowSection { margin-top: 2rem; }
 
-.rowHeader { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--gold); }
+.rowHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--gold);
+}
 
 .rowIcon { font-size: 1.1rem; color: var(--gold); }
 
-.rowTitle { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.3rem; font-weight: 700; color: #2E1909; letter-spacing: 0.05em; }
-
-.rowNote { font-family: 'EB Garamond', Georgia, serif; font-size: 0.85rem; font-style: italic; color: #7D532E; opacity: 0.7; margin-bottom: 0.75rem; }
+.rowTitle {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2E1909;
+  letter-spacing: 0.05em;
+}
 
 /* ===== Horizontal Scroll ===== */
-.rowScroll { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 0.5rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+.rowScroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 0.25rem 0 0.75rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
 .rowScroll::-webkit-scrollbar { height: 4px; }
 .rowScroll::-webkit-scrollbar-track { background: rgba(232,213,168,0.3); border-radius: 2px; }
 .rowScroll::-webkit-scrollbar-thumb { background: var(--gold-pale); border-radius: 2px; }
 
 /* ===== Channel Cards ===== */
-.card { flex: 0 0 200px; scroll-snap-align: start; border: 2px solid transparent; border-radius: 4px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; background: #1A0A06; }
-.card:hover { border-color: var(--gold); box-shadow: 0 6px 20px rgba(201,149,58,0.2); transform: translateY(-3px); }
+.card {
+  flex: 0 0 210px;
+  scroll-snap-align: start;
+  border: 2px solid rgba(46,25,9,0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #1A0A06;
+}
+.card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 6px 20px rgba(201,149,58,0.2);
+  transform: translateY(-3px);
+}
 .card:hover .cardOverlay { opacity: 1; }
-.card:hover .cardImg { transform: scale(1.05); }
-.cardActive { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold), 0 6px 24px rgba(201,149,58,0.3); }
+.card:hover .cardImg { transform: scale(1.08); }
+.cardActive {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--gold), 0 6px 24px rgba(201,149,58,0.3);
+}
 
-.cardThumb { position: relative; width: 100%; padding-bottom: 56.25%; overflow: hidden; }
-.cardImg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: all 0.4s ease; }
-.cardOverlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.3s; }
-.cardPlay { font-size: 2rem; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+.cardThumb {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
 
-.cardInfo { padding: 0.6rem 0.7rem; background: #1A0A06; }
-.cardName { display: block; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem; font-weight: 700; color: var(--gold); line-height: 1.2; margin-bottom: 0.1rem; }
-.cardSub { display: block; font-family: 'EB Garamond', Georgia, serif; font-size: 0.75rem; color: var(--gold-pale); opacity: 0.6; }
+.cardImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.cardPlaceholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2E1909, #4A3018);
+}
+
+.cardPlaceholderIcon {
+  font-size: 2.5rem;
+  color: var(--gold);
+  opacity: 0.3;
+}
+
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.45);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.cardPlay {
+  font-size: 2.5rem;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+
+.cardTime {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(74,19,32,0.9);
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+  letter-spacing: 0.03em;
+}
+
+.cardInfo {
+  padding: 0.6rem 0.7rem;
+  background: #1A0A06;
+}
+
+.cardName {
+  display: block;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1.25;
+  margin-bottom: 0.15rem;
+}
+
+.cardSub {
+  display: block;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.75rem;
+  color: var(--gold-pale);
+  opacity: 0.6;
+}
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
-  .card { flex: 0 0 170px; }
+  .card { flex: 0 0 175px; }
   .tvBarCenter { max-width: 200px; font-size: 0.8rem; }
 }
 @media (max-width: 480px) {
@@ -71,4 +186,5 @@
   .tvBarLeft, .tvBarRight { min-width: 60px; }
   .tvBarCenter { max-width: 140px; font-size: 0.75rem; }
   .rowTitle { font-size: 1.1rem; }
+  .cardThumb { padding-bottom: 75%; }
 }

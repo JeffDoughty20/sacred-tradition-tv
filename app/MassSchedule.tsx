@@ -7,45 +7,57 @@ interface Channel {
   name: string
   subtitle: string
   channelId: string
-  thumbnail: string
+  utcHour: number
+  utcMinute: number
 }
 
+// Verified daily streamers with known UTC times
 const latinMass: Channel[] = [
-  { name: 'FSSP Phoenix', subtitle: 'Phoenix, AZ', channelId: 'UC1nuBPRlL4Y-e6dsN_HQbOA', thumbnail: '/mass.png' },
-  { name: 'SSPX Seminary', subtitle: 'Winona, MN', channelId: 'UCZoB5_BphShGRovMZ2AsG5A', thumbnail: '/mass.png' },
-  { name: 'Shrine of St. Elizabeth', subtitle: 'Cleveland, OH', channelId: 'UC-HuFJsZMy5CdwfXp9j-J0Q', thumbnail: '/mass.png' },
-  { name: 'ICRSS Chicago', subtitle: 'Chicago, IL', channelId: 'UCBb7H5dkIrNjCmwBSwUX9Zw', thumbnail: '/mass.png' },
-  { name: 'SSPX Paris', subtitle: 'Saint-Nicolas-du-Chardonnet', channelId: 'UCGNiUjfJu2KOf71MKz86z7A', thumbnail: '/mass.png' },
-  { name: 'FSSP Kansas City', subtitle: 'Kansas City, MO', channelId: 'UCDiftFDDgXrRDSIeffAtY4A', thumbnail: '/mass.png' },
-  { name: 'SSPX Toronto', subtitle: 'Toronto, Canada', channelId: 'UC_W1sjtJTk7pE1j-EUbR5Tg', thumbnail: '/mass.png' },
-  { name: 'Oxford Oratory', subtitle: 'Oxford, England', channelId: 'UCZ6YQ4ZBs0fbeNPHl16YyFw', thumbnail: '/mass.png' },
-  { name: 'FSSP Sacramento', subtitle: 'Sacramento, CA', channelId: 'UCp3fLkScbe6hjEBncVk-EoA', thumbnail: '/mass.png' },
-  { name: 'Canons Regular', subtitle: 'New Jerusalem', channelId: 'UC9haz_LghUfO8Mp0HilRM1Q', thumbnail: '/mass.png' },
+  { name: 'FSSP Phoenix', subtitle: 'Phoenix, AZ', channelId: 'UC1nuBPRlL4Y-e6dsN_HQbOA', utcHour: 14, utcMinute: 0 },
+  { name: 'Shrine of St. Elizabeth', subtitle: 'Cleveland, OH', channelId: 'UC-HuFJsZMy5CdwfXp9j-J0Q', utcHour: 11, utcMinute: 30 },
+  { name: 'SSPX Toronto', subtitle: 'Toronto, Canada', channelId: 'UC_W1sjtJTk7pE1j-EUbR5Tg', utcHour: 11, utcMinute: 15 },
+  { name: 'ICRSS Chicago', subtitle: 'Chicago, IL', channelId: 'UCBb7H5dkIrNjCmwBSwUX9Zw', utcHour: 12, utcMinute: 0 },
+  { name: 'SSPX Paris — Low Mass', subtitle: 'Saint-Nicolas-du-Chardonnet', channelId: 'UCGNiUjfJu2KOf71MKz86z7A', utcHour: 5, utcMinute: 30 },
+  { name: 'SSPX Paris — Sung Mass', subtitle: 'Saint-Nicolas-du-Chardonnet', channelId: 'UCGNiUjfJu2KOf71MKz86z7A', utcHour: 10, utcMinute: 0 },
+  { name: 'SSPX Poland', subtitle: 'Warszawa', channelId: 'UCMa2Tt8bO4WMtgGhHNT8SvQ', utcHour: 16, utcMinute: 0 },
+  { name: 'Oxford Oratory', subtitle: 'Oxford, England', channelId: 'UCZ6YQ4ZBs0fbeNPHl16YyFw', utcHour: 17, utcMinute: 0 },
 ]
 
-const chantAndRosary: Channel[] = [
-  { name: 'Gregorian Chant 24/7', subtitle: 'Sacred Music Stream', channelId: 'UCnczYYBPJHPFhNBt9dI399Q', thumbnail: '/mass.png' },
-  { name: 'SSPX Seminary Rosary', subtitle: 'Daily Holy Rosary', channelId: 'UCZoB5_BphShGRovMZ2AsG5A', thumbnail: '/mass.png' },
-  { name: 'Gregorian Chant', subtitle: 'Monks of Norcia', channelId: 'UCpnItyslD0BqEOYBbTRy35w', thumbnail: '/mass.png' },
-  { name: 'Holy Rosary Live', subtitle: 'Daily Mysteries', channelId: 'UC7b-QQ7PbrZs6yAUdJkSL7w', thumbnail: '/mass.png' },
-  { name: 'Sacred Polyphony', subtitle: 'Choral Music', channelId: 'UCY53AqHeZ3n3HgjttLdcBww', thumbnail: '/mass.png' },
+const rosary: Channel[] = [
+  { name: 'SSPX Seminary — Rosary', subtitle: 'St. Thomas Aquinas Seminary', channelId: 'UCZoB5_BphShGRovMZ2AsG5A', utcHour: 20, utcMinute: 0 },
+  { name: 'SSPX Paris — Chapelet', subtitle: 'Daily Holy Rosary', channelId: 'UCGNiUjfJu2KOf71MKz86z7A', utcHour: 15, utcMinute: 45 },
+  { name: 'Silverstream Priory', subtitle: 'Divine Office & Rosary', channelId: 'UCpnItyslD0BqEOYBbTRy35w', utcHour: 19, utcMinute: 30 },
 ]
 
 const vaticanLive: Channel[] = [
-  { name: 'Vatican News', subtitle: 'Official Vatican Channel', channelId: 'UCxIsefyl9g9A5SGWA4FvGIA', thumbnail: '/mass.png' },
-  { name: 'Vatican Media', subtitle: 'Holy See Press Office', channelId: 'UCKMuFzwGVQ7PaGMwMvW0Fiw', thumbnail: '/mass.png' },
-  { name: 'Vatican News - Italiano', subtitle: 'Notizie dal Vaticano', channelId: 'UC7E-LYc1wivk33iMQG3pIJA', thumbnail: '/mass.png' },
-  { name: 'Vatican News - Español', subtitle: 'Noticias del Vaticano', channelId: 'UCEKMBHgrabkCbv0P4u42p7A', thumbnail: '/mass.png' },
+  { name: 'Vatican News', subtitle: 'Official Vatican Channel', channelId: 'UCxIsefyl9g9A5SGWA4FvGIA', utcHour: 9, utcMinute: 0 },
+  { name: 'Vatican Media', subtitle: 'Holy See Press Office', channelId: 'UCKMuFzwGVQ7PaGMwMvW0Fiw', utcHour: 9, utcMinute: 30 },
 ]
+
+function getLocalTime(utcHour: number, utcMinute: number): string {
+  const now = new Date()
+  const d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), utcHour, utcMinute))
+  return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })
+}
 
 export default function MassSchedule() {
   const [activeChannel, setActiveChannel] = useState<Channel | null>(null)
   const [currentTime, setCurrentTime] = useState('')
+  const [timezone, setTimezone] = useState('')
+  const [thumbs, setThumbs] = useState<Record<string, string>>({})
 
   useEffect(() => {
+    setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone)
     const update = () => setCurrentTime(new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true }))
     update()
     const i = setInterval(update, 30000)
+
+    // Fetch YouTube channel thumbnails
+    fetch('/api/channels')
+      .then(r => r.json())
+      .then(data => { if (data && typeof data === 'object') setThumbs(data) })
+      .catch(() => {})
+
     return () => clearInterval(i)
   }, [])
 
@@ -53,6 +65,56 @@ export default function MassSchedule() {
     setActiveChannel(ch)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+
+  const renderRow = (title: string, icon: string, channels: Channel[]) => {
+    const sorted = [...channels].sort((a, b) => {
+      const now = new Date()
+      const nowMin = now.getHours() * 60 + now.getMinutes()
+      const aD = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), a.utcHour, a.utcMinute))
+      const bD = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), b.utcHour, b.utcMinute))
+      const aMin = aD.getHours() * 60 + aD.getMinutes()
+      const bMin = bD.getHours() * 60 + bD.getMinutes()
+      return ((aMin - nowMin + 1440) % 1440) - ((bMin - nowMin + 1440) % 1440)
+    })
+
+    return (
+      <div className={styles.rowSection}>
+        <div className={styles.rowHeader}>
+          <span className={styles.rowIcon}>{icon}</span>
+          <h3 className={styles.rowTitle}>{title}</h3>
+        </div>
+        <div className={styles.rowScroll}>
+          {sorted.map((ch, i) => {
+            const thumb = thumbs[ch.channelId]
+            const isActive = activeChannel?.channelId === ch.channelId && activeChannel?.utcHour === ch.utcHour
+            return (
+              <div key={i} className={`${styles.card} ${isActive ? styles.cardActive : ''}`} onClick={() => playChannel(ch)}>
+                <div className={styles.cardThumb}>
+                  {thumb ? (
+                    <img src={thumb} alt={ch.name} className={styles.cardImg} />
+                  ) : (
+                    <div className={styles.cardPlaceholder}>
+                      <span className={styles.cardPlaceholderIcon}>{icon}</span>
+                    </div>
+                  )}
+                  <div className={styles.cardOverlay}>
+                    <span className={styles.cardPlay}>▶</span>
+                  </div>
+                  <span className={styles.cardTime}>{getLocalTime(ch.utcHour, ch.utcMinute)}</span>
+                </div>
+                <div className={styles.cardInfo}>
+                  <span className={styles.cardName}>{ch.name}</span>
+                  <span className={styles.cardSub}>{ch.subtitle}</span>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  if (!timezone) return null
 
   return (
     <div className={styles.wrapper}>
@@ -90,6 +152,7 @@ export default function MassSchedule() {
                   <div className={styles.tvOffCross}>✠</div>
                   <h3 className={styles.tvOffTitle}>Sacred Tradition Television</h3>
                   <p className={styles.tvOffSub}>Select a channel below to begin watching</p>
+                  <p className={styles.tvOffTz}>{timezone.replace(/_/g, ' ')}</p>
                 </div>
               </div>
             </div>
@@ -99,83 +162,19 @@ export default function MassSchedule() {
           <div className={styles.tvInfoBar}>
             <span className={styles.tvInfoName}>{activeChannel.name}</span>
             <span className={styles.tvInfoSub}>{activeChannel.subtitle}</span>
-            <button className={styles.tvClose} onClick={() => setActiveChannel(null)}>✕ Close</button>
+            <button className={styles.tvClose} onClick={() => setActiveChannel(null)}>✕</button>
           </div>
         )}
       </div>
 
       {/* === ROW 1: LATIN MASS === */}
-      <div className={styles.rowSection}>
-        <div className={styles.rowHeader}>
-          <span className={styles.rowIcon}>☩</span>
-          <h3 className={styles.rowTitle}>Traditional Latin Mass</h3>
-        </div>
-        <div className={styles.rowScroll}>
-          {latinMass.map((ch, i) => (
-            <div key={i} className={`${styles.card} ${activeChannel?.channelId === ch.channelId ? styles.cardActive : ''}`} onClick={() => playChannel(ch)}>
-              <div className={styles.cardThumb}>
-                <img src={ch.thumbnail} alt={ch.name} className={styles.cardImg} />
-                <div className={styles.cardOverlay}>
-                  <span className={styles.cardPlay}>▶</span>
-                </div>
-              </div>
-              <div className={styles.cardInfo}>
-                <span className={styles.cardName}>{ch.name}</span>
-                <span className={styles.cardSub}>{ch.subtitle}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      {renderRow('Traditional Latin Mass', '☩', latinMass)}
 
-      {/* === ROW 2: GREGORIAN CHANT & ROSARY === */}
-      <div className={styles.rowSection}>
-        <div className={styles.rowHeader}>
-          <span className={styles.rowIcon}>♪</span>
-          <h3 className={styles.rowTitle}>Gregorian Chant &amp; Holy Rosary</h3>
-        </div>
-        <p className={styles.rowNote}>Gregorian chant streams between daily Rosary</p>
-        <div className={styles.rowScroll}>
-          {chantAndRosary.map((ch, i) => (
-            <div key={i} className={`${styles.card} ${activeChannel?.channelId === ch.channelId ? styles.cardActive : ''}`} onClick={() => playChannel(ch)}>
-              <div className={styles.cardThumb}>
-                <img src={ch.thumbnail} alt={ch.name} className={styles.cardImg} />
-                <div className={styles.cardOverlay}>
-                  <span className={styles.cardPlay}>▶</span>
-                </div>
-              </div>
-              <div className={styles.cardInfo}>
-                <span className={styles.cardName}>{ch.name}</span>
-                <span className={styles.cardSub}>{ch.subtitle}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* === ROW 2: ROSARY & CHANT === */}
+      {renderRow('Holy Rosary & Divine Office', '📿', rosary)}
 
-      {/* === ROW 3: VATICAN LIVE === */}
-      <div className={styles.rowSection}>
-        <div className={styles.rowHeader}>
-          <span className={styles.rowIcon}>🔑</span>
-          <h3 className={styles.rowTitle}>Vatican Live</h3>
-        </div>
-        <div className={styles.rowScroll}>
-          {vaticanLive.map((ch, i) => (
-            <div key={i} className={`${styles.card} ${activeChannel?.channelId === ch.channelId ? styles.cardActive : ''}`} onClick={() => playChannel(ch)}>
-              <div className={styles.cardThumb}>
-                <img src={ch.thumbnail} alt={ch.name} className={styles.cardImg} />
-                <div className={styles.cardOverlay}>
-                  <span className={styles.cardPlay}>▶</span>
-                </div>
-              </div>
-              <div className={styles.cardInfo}>
-                <span className={styles.cardName}>{ch.name}</span>
-                <span className={styles.cardSub}>{ch.subtitle}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* === ROW 3: VATICAN === */}
+      {renderRow('Vatican Live', '🔑', vaticanLive)}
 
     </div>
   )
