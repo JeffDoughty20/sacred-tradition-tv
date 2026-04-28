@@ -107,6 +107,14 @@ export default function Home() {
         <p className={styles.streamNote}>
           Live from the altar &middot; Join us daily for the Holy Sacrifice of the Mass
         </p>
+        <div className={styles.directoryLink}>
+          <a href="/masses" className={styles.directoryButton}>
+            ✠ Browse Live Mass Directory
+          </a>
+          <p className={styles.directoryNote}>
+            Live-streaming Traditional Latin Masses from around the world
+          </p>
+        </div>
       </section>
 
       {/* Daily Devotions */}

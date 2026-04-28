@@ -1,0 +1,274 @@
+/* ===== Page ===== */
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+
+.watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 900px;
+  height: 900px;
+  transform: translate(-50%, -50%);
+  background-image: url('/watermark.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== Logo Banner ===== */
+.logoBanner {
+  width: 100%;
+  background: linear-gradient(180deg, #1A0A06 0%, #2E1909 50%, #1A0A06 100%);
+  border-bottom: 2px solid var(--gold);
+  position: relative;
+  z-index: 2;
+}
+
+.logoBannerInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logoBannerInner::before,
+.logoBannerInner::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), rgba(201, 149, 58, 0.3));
+}
+
+.logoBannerInner::after {
+  background: linear-gradient(270deg, transparent, var(--gold), rgba(201, 149, 58, 0.3));
+}
+
+.logo {
+  width: clamp(150px, 20vw, 220px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.6));
+  border-radius: 4px;
+  margin: 0 2rem;
+  cursor: pointer;
+}
+
+/* ===== Header ===== */
+.header {
+  padding: 2.5rem 2rem 1rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.headerOrnament {
+  color: var(--gold);
+  font-size: 1.2rem;
+}
+
+.headerOrnamentFlip {
+  color: var(--gold);
+  font-size: 1.2rem;
+  transform: scaleX(-1);
+  display: inline-block;
+}
+
+.pageTitle {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 600;
+  color: var(--burgundy);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.pageSubtitle {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--brown-light);
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+
+.pageNote {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  opacity: 0.6;
+}
+
+/* ===== Directory ===== */
+.directory {
+  padding: 1.5rem 2rem;
+  width: 100%;
+  max-width: 1000px;
+  position: relative;
+  z-index: 1;
+}
+
+.categoryTitle {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--burgundy);
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--gold-pale);
+}
+
+.channelGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.75rem;
+}
+
+.channelCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: 1rem 1.25rem;
+  background: rgba(253, 248, 240, 0.85);
+  border: 1px solid var(--gold-pale);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.channelCard:hover {
+  border-color: var(--gold);
+  box-shadow: 0 3px 12px rgba(201, 149, 58, 0.15);
+  transform: translateY(-2px);
+}
+
+.channelCard:hover .channelLive {
+  color: var(--burgundy);
+  opacity: 1;
+}
+
+.channelIcon {
+  font-size: 1rem;
+  margin-bottom: 0.15rem;
+}
+
+.channelName {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.3;
+}
+
+.channelLive {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.85rem;
+  color: var(--gold);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+/* ===== Back Link ===== */
+.backSection {
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.backLink {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1rem;
+  color: var(--burgundy);
+  text-decoration: none;
+  border: 1px solid var(--gold-pale);
+  padding: 0.6rem 1.75rem;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.backLink:hover {
+  border-color: var(--gold);
+  background: rgba(201, 149, 58, 0.06);
+}
+
+/* ===== Footer ===== */
+.footer {
+  padding: 2rem 2rem 2.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.footerDivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.footerLine {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-pale), transparent);
+}
+
+.footerCrossIcon {
+  color: var(--gold);
+  font-size: 0.9rem;
+}
+
+.footerMotto {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.9rem;
+  color: var(--brown-light);
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.footerCopy {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.75rem;
+  color: var(--brown-light);
+  opacity: 0.45;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .channelGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .logo {
+    margin: 0 1rem;
+  }
+
+  .watermark {
+    width: 400px;
+    height: 400px;
+  }
+}

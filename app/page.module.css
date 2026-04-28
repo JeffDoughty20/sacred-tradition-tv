@@ -390,6 +390,39 @@
   opacity: 0.65;
 }
 
+.directoryLink {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.directoryButton {
+  display: inline-block;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--burgundy);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  border: 1px solid var(--gold-pale);
+  padding: 0.65rem 2rem;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.directoryButton:hover {
+  border-color: var(--gold);
+  background: rgba(201, 149, 58, 0.06);
+}
+
+.directoryNote {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--brown-light);
+  margin-top: 0.5rem;
+  opacity: 0.5;
+}
+
 /* ===== Devotions ===== */
 .devotions {
   width: 100%;
