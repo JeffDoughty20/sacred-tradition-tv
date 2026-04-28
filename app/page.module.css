@@ -44,14 +44,14 @@
 /* ===== Mass Hero ===== */
 .massHero {
   width: 100%;
-  min-height: 85vh;
+  min-height: 75vh;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   background-image: url('/mass.png');
   background-size: cover;
-  background-position: center top;
+  background-position: center 30%;
   z-index: 1;
 }
 
