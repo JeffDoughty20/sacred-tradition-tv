@@ -84,11 +84,81 @@ export default function Home() {
         </p>
       </section>
 
-      {/* Live Stream */}
+      {/* Today's Schedule */}
+      <section className={styles.todaySchedule}>
+        <div className={styles.sectionHeader}>
+          <span className={styles.headerOrnament}>❧</span>
+          <h2 className={styles.sectionTitle}>Today&apos;s Schedule</h2>
+          <span className={styles.headerOrnamentFlip}>❧</span>
+        </div>
+        <p className={styles.sectionSubtitle}>
+          Select a Mass or devotion to watch
+        </p>
+        <div className={styles.scheduleGrid}>
+          <a href="https://www.youtube.com/channel/UC1nuBPRlL4Y-e6dsN_HQbOA/live" target="_blank" rel="noopener noreferrer" className={styles.scheduleCard}>
+            <div className={styles.scheduleThumb}>
+              <img src="https://i.ytimg.com/vi/9sdEb-5laaw/hqdefault.jpg" alt="Low Mass" className={styles.thumbImg} />
+              <span className={styles.scheduleTime}>7:00 AM</span>
+            </div>
+            <div className={styles.scheduleInfo}>
+              <h3 className={styles.scheduleName}>Low Mass</h3>
+              <p className={styles.scheduleParish}>FSSP Phoenix, AZ</p>
+            </div>
+          </a>
+          <a href="https://www.youtube.com/channel/UC-HuFJsZMy5CdwfXp9j-J0Q/live" target="_blank" rel="noopener noreferrer" className={styles.scheduleCard}>
+            <div className={styles.scheduleThumb}>
+              <img src="https://i.ytimg.com/vi/I3u0hzjGQMA/hqdefault.jpg" alt="Sung Mass" className={styles.thumbImg} />
+              <span className={styles.scheduleTime}>9:00 AM</span>
+            </div>
+            <div className={styles.scheduleInfo}>
+              <h3 className={styles.scheduleName}>Sung Mass</h3>
+              <p className={styles.scheduleParish}>Shrine of St. Elizabeth, Cleveland</p>
+            </div>
+          </a>
+          <a href="https://www.youtube.com/channel/UCBb7H5dkIrNjCmwBSwUX9Zw/live" target="_blank" rel="noopener noreferrer" className={styles.scheduleCard}>
+            <div className={styles.scheduleThumb}>
+              <img src="https://i.ytimg.com/vi/9sdEb-5laaw/hqdefault.jpg" alt="Solemn High Mass" className={styles.thumbImg} />
+              <span className={styles.scheduleTime}>12:00 PM</span>
+              <span className={styles.scheduleFeatured}>Featured</span>
+            </div>
+            <div className={styles.scheduleInfo}>
+              <h3 className={styles.scheduleName}>Solemn High Mass</h3>
+              <p className={styles.scheduleParish}>ICRSS Chicago, IL</p>
+            </div>
+          </a>
+          <a href="https://www.youtube.com/channel/UCp3fLkScbe6hjEBncVk-EoA/live" target="_blank" rel="noopener noreferrer" className={styles.scheduleCard}>
+            <div className={styles.scheduleThumb}>
+              <img src="https://i.ytimg.com/vi/9sdEb-5laaw/hqdefault.jpg" alt="Rosary" className={styles.thumbImg} />
+              <span className={styles.scheduleTime}>3:00 PM</span>
+            </div>
+            <div className={styles.scheduleInfo}>
+              <h3 className={styles.scheduleName}>Holy Rosary</h3>
+              <p className={styles.scheduleParish}>FSSP Sacramento, CA</p>
+            </div>
+          </a>
+          <a href="https://www.youtube.com/channel/UCDiftFDDgXrRDSIeffAtY4A/live" target="_blank" rel="noopener noreferrer" className={styles.scheduleCard}>
+            <div className={styles.scheduleThumb}>
+              <img src="https://i.ytimg.com/vi/9sdEb-5laaw/hqdefault.jpg" alt="Evening Mass" className={styles.thumbImg} />
+              <span className={styles.scheduleTime}>6:00 PM</span>
+            </div>
+            <div className={styles.scheduleInfo}>
+              <h3 className={styles.scheduleName}>Evening Mass</h3>
+              <p className={styles.scheduleParish}>FSSP Kansas City</p>
+            </div>
+          </a>
+          <a href="/masses" className={styles.scheduleCardMore}>
+            <div className={styles.moreIcon}>✠</div>
+            <h3 className={styles.moreName}>Browse All</h3>
+            <p className={styles.moreDesc}>43+ Live Mass Channels</p>
+          </a>
+        </div>
+      </section>
+
+      {/* Featured Stream */}
       <section className={styles.livestream}>
         <div className={styles.sectionHeader}>
           <span className={styles.headerOrnament}>❧</span>
-          <h2 className={styles.sectionTitle}>Watch Live</h2>
+          <h2 className={styles.sectionTitle}>Now Streaming</h2>
           <span className={styles.headerOrnamentFlip}>❧</span>
         </div>
         <p className={styles.sectionSubtitle}>
@@ -107,14 +177,6 @@ export default function Home() {
         <p className={styles.streamNote}>
           Live from the altar &middot; Join us daily for the Holy Sacrifice of the Mass
         </p>
-        <div className={styles.directoryLink}>
-          <a href="/masses" className={styles.directoryButton}>
-            ✠ Browse Live Mass Directory
-          </a>
-          <p className={styles.directoryNote}>
-            Live-streaming Traditional Latin Masses from around the world
-          </p>
-        </div>
       </section>
 
       {/* Daily Devotions */}

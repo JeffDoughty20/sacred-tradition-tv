@@ -352,6 +352,149 @@
   opacity: 0.55;
 }
 
+/* ===== Today's Schedule ===== */
+.todaySchedule {
+  padding: 2rem 2rem 1rem;
+  width: 100%;
+  max-width: 960px;
+  position: relative;
+  z-index: 1;
+}
+
+.scheduleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.scheduleCard {
+  display: block;
+  text-decoration: none;
+  background: rgba(253, 248, 240, 0.9);
+  border: 1px solid var(--gold-pale);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.scheduleCard:hover {
+  border-color: var(--gold);
+  box-shadow: 0 6px 24px rgba(201, 149, 58, 0.18);
+  transform: translateY(-3px);
+}
+
+.scheduleThumb {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  background: #2E1909;
+}
+
+.thumbImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+.scheduleCard:hover .thumbImg {
+  opacity: 1;
+}
+
+.scheduleTime {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(74, 19, 32, 0.85);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  letter-spacing: 0.03em;
+}
+
+.scheduleFeatured {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--cream);
+  background: var(--gold);
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.scheduleInfo {
+  padding: 0.75rem 0.85rem;
+}
+
+.scheduleName {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--burgundy);
+  margin-bottom: 0.15rem;
+}
+
+.scheduleParish {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.8rem;
+  color: var(--brown-light);
+  opacity: 0.7;
+}
+
+.scheduleCardMore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background: rgba(107, 28, 42, 0.05);
+  border: 1px dashed var(--gold-pale);
+  border-radius: 2px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  min-height: 180px;
+}
+
+.scheduleCardMore:hover {
+  border-color: var(--gold);
+  background: rgba(107, 28, 42, 0.08);
+}
+
+.moreIcon {
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.moreName {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--burgundy);
+  margin-bottom: 0.25rem;
+}
+
+.moreDesc {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.8rem;
+  color: var(--brown-light);
+  opacity: 0.6;
+}
+
 /* ===== Live Stream ===== */
 .livestream {
   padding: 2rem 2rem 2.5rem;
@@ -388,39 +531,6 @@
   text-align: center;
   margin-top: 1rem;
   opacity: 0.65;
-}
-
-.directoryLink {
-  text-align: center;
-  margin-top: 1.5rem;
-}
-
-.directoryButton {
-  display: inline-block;
-  font-family: 'Cormorant Garamond', 'Georgia', serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--burgundy);
-  text-decoration: none;
-  letter-spacing: 0.06em;
-  border: 1px solid var(--gold-pale);
-  padding: 0.65rem 2rem;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-.directoryButton:hover {
-  border-color: var(--gold);
-  background: rgba(201, 149, 58, 0.06);
-}
-
-.directoryNote {
-  font-family: 'EB Garamond', 'Georgia', serif;
-  font-size: 0.8rem;
-  font-style: italic;
-  color: var(--brown-light);
-  margin-top: 0.5rem;
-  opacity: 0.5;
 }
 
 /* ===== Devotions ===== */
@@ -737,6 +847,10 @@
     gap: 1rem;
   }
 
+  .scheduleGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .devotionGrid {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -760,9 +874,14 @@
   .schedule,
   .chant,
   .donation,
-  .livestream {
+  .livestream,
+  .todaySchedule {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
+  }
+
+  .scheduleGrid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .bannerBorder {
