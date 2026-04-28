@@ -1,3 +1,19 @@
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gentlePulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.65; }
+}
+
 /* ===== Page ===== */
 .page {
   display: flex;
@@ -14,8 +30,8 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 800px;
-  height: 800px;
+  width: 900px;
+  height: 900px;
   transform: translate(-50%, -50%);
   background-image: url('/watermark.png');
   background-size: contain;
@@ -23,41 +39,50 @@
   background-position: center;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.5;
 }
 
-/* ===== Animations ===== */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes gentlePulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.7; }
-}
-
-/* ===== Hero ===== */
-.hero {
-  padding: 2.5rem 2rem 1.5rem;
-  text-align: center;
+/* ===== Mass Hero ===== */
+.massHero {
+  width: 100%;
+  min-height: 85vh;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/mass.png');
+  background-size: cover;
+  background-position: center top;
   z-index: 1;
-  animation: fadeIn 2s ease-out;
+}
+
+.massOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(30, 10, 8, 0.35) 0%,
+    rgba(30, 10, 8, 0.15) 30%,
+    rgba(30, 10, 8, 0.15) 60%,
+    rgba(30, 10, 8, 0.6) 85%,
+    rgba(253, 248, 240, 1) 100%
+  );
+}
+
+.massContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  animation: fadeIn 2.5s ease-out;
 }
 
 .logo {
-  width: clamp(280px, 45vw, 420px);
+  width: clamp(260px, 42vw, 400px);
   height: auto;
   margin: 0 auto;
   display: block;
-  filter: drop-shadow(0 4px 12px rgba(74, 19, 32, 0.12));
-  border-radius: 4px;
+  filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.5));
+  border-radius: 6px;
 }
 
 .divider {
@@ -71,22 +96,23 @@
 .dividerLine {
   width: clamp(60px, 15vw, 140px);
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
 }
 
 .dividerCross {
-  color: var(--gold);
-  font-size: 0.9rem;
+  color: var(--gold-light);
+  font-size: 1rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .tagline {
   font-family: 'EB Garamond', 'Georgia', serif;
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
   font-style: italic;
-  color: var(--brown-light);
-  letter-spacing: 0.15em;
+  color: var(--cream);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  opacity: 0.8;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 
 /* ===== Banner ===== */
@@ -94,26 +120,34 @@
   width: 100%;
   max-width: 800px;
   padding: 0 2rem;
-  margin: 1rem 0;
+  margin: -1rem 0 1.5rem;
   position: relative;
   z-index: 1;
   animation: fadeInUp 1.5s ease-out 0.3s both;
 }
 
+.bannerBorder {
+  border: 1px solid var(--gold-pale);
+  border-top: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  background: rgba(253, 248, 240, 0.7);
+  backdrop-filter: blur(4px);
+}
+
 .bannerCross {
   display: block;
-  text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: var(--gold);
   margin-bottom: 0.75rem;
 }
 
 .bannerTitle {
   font-family: 'Cormorant Garamond', 'Georgia', serif;
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
   font-weight: 600;
   color: var(--burgundy);
-  text-align: center;
   letter-spacing: 0.12em;
   margin-bottom: 0.75rem;
 }
@@ -121,10 +155,9 @@
 .bannerText {
   font-family: 'EB Garamond', 'Georgia', serif;
   font-size: 1.05rem;
-  line-height: 1.8;
+  line-height: 1.85;
   color: var(--text-dark);
-  text-align: center;
-  max-width: 600px;
+  max-width: 580px;
   margin: 0 auto;
   opacity: 0.85;
 }
@@ -134,20 +167,32 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1rem;
   margin-bottom: 0.5rem;
 }
 
-.headerLine {
-  width: clamp(40px, 10vw, 100px);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+.headerOrnament {
+  color: var(--gold);
+  font-size: 1.2rem;
 }
 
-.headerLineLight {
-  width: clamp(40px, 10vw, 100px);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-pale), transparent);
+.headerOrnamentFlip {
+  color: var(--gold);
+  font-size: 1.2rem;
+  transform: scaleX(-1);
+  display: inline-block;
+}
+
+.headerOrnamentLight {
+  color: var(--gold-pale);
+  font-size: 1.2rem;
+}
+
+.headerOrnamentLightFlip {
+  color: var(--gold-pale);
+  font-size: 1.2rem;
+  transform: scaleX(-1);
+  display: inline-block;
 }
 
 .sectionTitle {
@@ -195,55 +240,77 @@
 }
 
 .massCard {
-  background: rgba(253, 248, 240, 0.85);
+  background: rgba(253, 248, 240, 0.9);
   border: 1px solid var(--gold-pale);
   border-radius: 2px;
-  padding: 1.75rem 1.25rem;
+  padding: 2rem 1.25rem 1.75rem;
   text-align: center;
   transition: all 0.3s ease;
   position: relative;
+  overflow: hidden;
+}
+
+.massCardFeatured {
+  composes: massCard;
+  border-color: var(--gold);
+  box-shadow: 0 4px 20px rgba(201, 149, 58, 0.15);
 }
 
 .massCard:hover {
   border-color: var(--gold);
-  box-shadow: 0 4px 16px rgba(201, 149, 58, 0.12);
-  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(201, 149, 58, 0.12);
+  transform: translateY(-3px);
 }
 
-.massCard::before {
-  content: '';
+.massCardAccent {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 40px;
-  height: 2px;
+  width: 50px;
+  height: 3px;
   background: var(--gold);
 }
 
+.massCardAccentGold {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
 .massIcon {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   color: var(--gold);
   margin-bottom: 0.75rem;
 }
 
-.massIconHighlight {
-  font-size: 1.3rem;
+.massIconFeatured {
+  font-size: 1.6rem;
   color: var(--burgundy);
   margin-bottom: 0.75rem;
 }
 
 .massTime {
   font-family: 'Cormorant Garamond', 'Georgia', serif;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   font-weight: 700;
   color: var(--burgundy);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.massDivider {
+  width: 30px;
+  height: 1px;
+  background: var(--gold-pale);
+  margin: 0 auto 0.5rem;
 }
 
 .massType {
   font-family: 'Cormorant Garamond', 'Georgia', serif;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--gold);
   letter-spacing: 0.08em;
@@ -254,9 +321,9 @@
 .massDesc {
   font-family: 'EB Garamond', 'Georgia', serif;
   font-size: 0.9rem;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--text-dark);
-  opacity: 0.75;
+  opacity: 0.72;
 }
 
 .scheduleNote {
@@ -265,8 +332,8 @@
   font-style: italic;
   color: var(--brown-light);
   text-align: center;
-  margin-top: 1.25rem;
-  opacity: 0.6;
+  margin-top: 1.5rem;
+  opacity: 0.55;
 }
 
 /* ===== Devotions ===== */
@@ -276,24 +343,10 @@
   position: relative;
   z-index: 1;
   margin: 1.5rem 0;
-  padding: 3rem 0;
+  padding: 3.5rem 0;
   border-top: 2px solid var(--gold);
   border-bottom: 2px solid var(--gold);
-}
-
-.devotions::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('/watermark.png');
-  background-size: 500px;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.04;
-  pointer-events: none;
+  overflow: hidden;
 }
 
 .devotionsInner {
@@ -301,6 +354,7 @@
   margin: 0 auto;
   padding: 0 2rem;
   position: relative;
+  z-index: 1;
 }
 
 .devotionGrid {
@@ -321,7 +375,7 @@
 
 .devotionCard:hover {
   background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(212, 165, 74, 0.35);
+  border-color: rgba(212, 165, 74, 0.4);
 }
 
 .devotionIcon {
@@ -343,8 +397,15 @@
   font-size: 1.1rem;
   color: var(--gold-pale);
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   letter-spacing: 0.05em;
+}
+
+.devotionDivider {
+  width: 30px;
+  height: 1px;
+  background: rgba(212, 165, 74, 0.3);
+  margin: 0 auto 0.75rem;
 }
 
 .devotionDesc {
@@ -364,41 +425,17 @@
   z-index: 1;
 }
 
-.chantSubtitle {
-  font-family: 'EB Garamond', 'Georgia', serif;
-  font-size: 1rem;
-  font-style: italic;
-  color: var(--brown-light);
-  text-align: center;
-  margin-bottom: 1.5rem;
-  opacity: 0.75;
-}
-
 .chantCard {
-  background: rgba(253, 248, 240, 0.85);
+  background: rgba(253, 248, 240, 0.9);
   border: 1px solid var(--gold-pale);
   border-radius: 2px;
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   text-align: center;
   position: relative;
 }
 
-.chantCard::before,
-.chantCard::after {
-  content: '~';
-  position: absolute;
-  font-family: 'Georgia', serif;
-  font-size: 2rem;
-  color: var(--gold-pale);
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.chantCard::before { left: 1rem; }
-.chantCard::after { right: 1rem; }
-
 .chantNeumes {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: var(--gold);
   letter-spacing: 0.5em;
   margin-bottom: 1rem;
@@ -408,10 +445,10 @@
 .chantText {
   font-family: 'EB Garamond', 'Georgia', serif;
   font-size: 1rem;
-  line-height: 1.8;
+  line-height: 1.85;
   color: var(--text-dark);
-  max-width: 600px;
-  margin: 0 auto 1.25rem;
+  max-width: 580px;
+  margin: 0 auto 1.5rem;
   opacity: 0.8;
 }
 
@@ -421,10 +458,10 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--gold);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   border: 1px solid var(--gold-pale);
-  padding: 0.4rem 1.5rem;
+  padding: 0.5rem 1.75rem;
   border-radius: 2px;
 }
 
@@ -461,7 +498,14 @@
   font-weight: 600;
   color: var(--gold);
   letter-spacing: 0.1em;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.donationDividerLine {
+  width: 50px;
+  height: 1px;
+  background: rgba(212, 165, 74, 0.4);
+  margin: 0 auto 1rem;
 }
 
 .donationText {
@@ -560,10 +604,23 @@
   z-index: 1;
 }
 
-.footerCross {
-  font-size: 1rem;
+.footerDivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.footerLine {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-pale), transparent);
+}
+
+.footerCrossIcon {
   color: var(--gold);
-  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .footerMotto {
@@ -584,6 +641,10 @@
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
+  .massHero {
+    min-height: 70vh;
+  }
+
   .massGrid {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -594,11 +655,6 @@
     gap: 1rem;
   }
 
-  .chantCard::before,
-  .chantCard::after {
-    display: none;
-  }
-
   .watermark {
     width: 500px;
     height: 500px;
@@ -606,8 +662,12 @@
 }
 
 @media (max-width: 480px) {
-  .hero {
-    padding: 2rem 1.5rem 1rem;
+  .massHero {
+    min-height: 60vh;
+  }
+
+  .massContent {
+    padding: 1.5rem;
   }
 
   .schedule,
@@ -615,6 +675,10 @@
   .donation {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
+  }
+
+  .bannerBorder {
+    padding: 2rem 1.25rem;
   }
 
   .donationCard {
@@ -626,13 +690,8 @@
     text-align: center;
   }
 
-  .sectionHeader {
-    gap: 0.75rem;
-  }
-
   .watermark {
     width: 350px;
     height: 350px;
   }
 }
-
