@@ -15,9 +15,9 @@ interface Channel {
 
 // Default Gregorian chant to play when site opens
 const DEFAULT_CHANT: Channel = {
-  name: 'Gregorian Chant',
+  name: 'Gregorian Chant — Eucharistic Adoration',
   subtitle: 'Sacred Tradition Television',
-  videoId: 'KTH8HKcUe0E',
+  videoId: 'j1kpgKvsuDY',
   utcHour: 0, utcMinute: 0,
   isLive: false,
 }
@@ -34,13 +34,13 @@ const latinMass: Channel[] = [
 ]
 
 const chantAndRosary: Channel[] = [
-  { name: 'Gregorian Chant', subtitle: 'Monks of the Desert', videoId: 'KTH8HKcUe0E', utcHour: 0, utcMinute: 0, isLive: false },
+  { name: 'Gregorian Chant — Adoration', subtitle: 'Eucharistic Worship', videoId: 'j1kpgKvsuDY', utcHour: 0, utcMinute: 0, isLive: false },
   { name: 'SSPX Seminary — Rosary', subtitle: 'Daily at 4:00 PM ET', channelId: 'UCZoB5_BphShGRovMZ2AsG5A', utcHour: 20, utcMinute: 0, isLive: true },
-  { name: 'Sacred Polyphony', subtitle: 'Palestrina & Victoria', videoId: 'BOVXbSFziXQ', utcHour: 0, utcMinute: 0, isLive: false },
+  { name: 'Holy Silence & Chant', subtitle: 'Eucharistic Presence', videoId: 'SU7cOP-WRVw', utcHour: 0, utcMinute: 0, isLive: false },
   { name: 'SSPX Paris — Chapelet', subtitle: 'Daily Rosary', channelId: 'UCGNiUjfJu2KOf71MKz86z7A', utcHour: 15, utcMinute: 45, isLive: true },
-  { name: 'Chant of the Mystics', subtitle: 'Healing Gregorian Chant', videoId: 'kZY2eeozdo8', utcHour: 0, utcMinute: 0, isLive: false },
+  { name: 'Chant for Adoration', subtitle: 'Prayer & Healing', videoId: 'RI3j-FK9u3o', utcHour: 0, utcMinute: 0, isLive: false },
   { name: 'Silverstream Priory', subtitle: 'Divine Office', channelId: 'UCpnItyslD0BqEOYBbTRy35w', utcHour: 19, utcMinute: 30, isLive: true },
-  { name: 'Requiem — Mozart', subtitle: 'Sacred Classical', videoId: 'sPlhKP0nZII', utcHour: 0, utcMinute: 0, isLive: false },
+  { name: 'Gregorian Chant — Catholic Prayer', subtitle: 'Adoration Music', videoId: '1FoQlHFzqw4', utcHour: 0, utcMinute: 0, isLive: false },
 ]
 
 const vaticanLive: Channel[] = [
@@ -177,7 +177,7 @@ export default function MassSchedule() {
             {active.isLive !== false ? (
               <span className={styles.tvLiveBadge}><span className={styles.liveDot} /> LIVE</span>
             ) : (
-              <span className={styles.tvOnDemand}>♪ Playing</span>
+              <span className={styles.tvOnDemand}>♪ Adoration</span>
             )}
           </div>
           <div className={styles.tvBarCenter}>{active.name}</div>
