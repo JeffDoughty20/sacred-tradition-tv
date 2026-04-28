@@ -55,10 +55,11 @@ function getLocalTime(utcHour: number, utcMinute: number): { time: string; label
 
   const nowMs = now.getTime()
   const todayMs = today.getTime()
-  const tomorrowMs = tomorrow.getTime()
 
-  // If today's time hasn't passed (or within 75 min window), show as Today
-  if (todayMs + 75 * 60000 > nowMs && todayMs - 30 * 60000 < nowMs) {
+  const minsSinceStart = (nowMs - todayMs) / 60000
+
+  // Currently streaming: from 5 min before to 90 min after start
+  if (minsSinceStart >= -5 && minsSinceStart <= 90) {
     return { time: today.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true }), label: 'Now' }
   } else if (todayMs > nowMs) {
     return { time: today.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true }), label: 'Today' }
@@ -103,13 +104,29 @@ export default function MassSchedule() {
       if (!a.isLive && b.isLive) return 1
       if (a.isLive && !b.isLive) return -1
       if (!a.isLive && !b.isLive) return 0
-      // Live channels sorted by next upcoming
+
       const now = new Date()
+      const nowMs = now.getTime()
+
+      const aStart = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), a.utcHour, a.utcMinute))
+      const bStart = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), b.utcHour, b.utcMinute))
+
+      const aSince = (nowMs - aStart.getTime()) / 60000
+      const bSince = (nowMs - bStart.getTime()) / 60000
+
+      // Currently streaming (within -5 to +90 min) gets highest priority
+      const aStreaming = aSince >= -5 && aSince <= 90
+      const bStreaming = bSince >= -5 && bSince <= 90
+
+      if (aStreaming && !bStreaming) return -1
+      if (!aStreaming && bStreaming) return 1
+      if (aStreaming && bStreaming) return aSince - bSince // most recently started first
+
+      // Then sort by next upcoming (today or tomorrow)
+      const aMin = aStart.getHours() * 60 + aStart.getMinutes()
+      const bMin = bStart.getHours() * 60 + bStart.getMinutes()
       const nowMin = now.getHours() * 60 + now.getMinutes()
-      const aD = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), a.utcHour, a.utcMinute))
-      const bD = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), b.utcHour, b.utcMinute))
-      const aMin = aD.getHours() * 60 + aD.getMinutes()
-      const bMin = bD.getHours() * 60 + bD.getMinutes()
+
       return ((aMin - nowMin + 1440) % 1440) - ((bMin - nowMin + 1440) % 1440)
     })
   }
