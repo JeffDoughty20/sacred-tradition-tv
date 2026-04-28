@@ -30,7 +30,7 @@ export default function Home() {
       <section className={styles.schedule}>
         <div className={styles.sectionHeader}>
           <span className={styles.headerOrnament}>❧</span>
-          <h2 className={styles.sectionTitle}>Daily Holy Mass</h2>
+          <h2 className={styles.sectionTitle}>Daily Mass &amp; Devotions</h2>
           <span className={styles.headerOrnamentFlip}>❧</span>
         </div>
         <p className={styles.sectionSubtitle}>
