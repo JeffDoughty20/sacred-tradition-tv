@@ -1,0 +1,248 @@
+.wrapper {
+  width: 100%;
+  max-width: 900px;
+}
+
+.tzBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: rgba(46, 25, 9, 0.06);
+  border: 1px solid var(--gold-pale);
+  border-radius: 2px;
+  margin-bottom: 1rem;
+}
+
+.tzLabel {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.85rem;
+  color: var(--brown-light);
+  opacity: 0.7;
+}
+
+.tzCurrent {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--burgundy);
+}
+
+.massList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.massRow {
+  display: grid;
+  grid-template-columns: 130px 1fr auto 120px;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(232, 213, 168, 0.5);
+  transition: all 0.25s ease;
+  background: transparent;
+}
+
+.massRow:first-child {
+  border-top: 1px solid rgba(232, 213, 168, 0.5);
+}
+
+.massRow:hover {
+  background: rgba(201, 149, 58, 0.06);
+}
+
+.massRowLive {
+  background: rgba(107, 28, 42, 0.06);
+  border-left: 3px solid var(--burgundy);
+}
+
+.massRowLive:hover {
+  background: rgba(107, 28, 42, 0.1);
+}
+
+.massRowUpcoming {
+  background: rgba(201, 149, 58, 0.04);
+}
+
+.massTimeCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+
+.massLocalTime {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--burgundy);
+}
+
+.liveBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+  background: #c0392b;
+  padding: 0.1rem 0.45rem;
+  border-radius: 2px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  animation: pulseLive 2s ease-in-out infinite;
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulseDot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseLive {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.upcomingBadge {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--gold);
+  background: rgba(201, 149, 58, 0.15);
+  padding: 0.1rem 0.4rem;
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+}
+
+.massInfoCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.massName {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.massParish {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 0.85rem;
+  color: var(--brown-light);
+  opacity: 0.7;
+}
+
+.massTypeCol {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.typeMass {
+  color: var(--gold);
+}
+
+.typeDevotion {
+  font-size: 1rem;
+}
+
+.watchCol {
+  text-align: right;
+}
+
+.watchBtn {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--burgundy);
+  opacity: 0.6;
+  transition: opacity 0.25s;
+}
+
+.massRow:hover .watchBtn {
+  opacity: 1;
+}
+
+.massRowLive .watchBtn {
+  opacity: 1;
+  color: #c0392b;
+  font-weight: 700;
+}
+
+.browseAll {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.browseLink {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--burgundy);
+  text-decoration: none;
+  border: 1px solid var(--gold-pale);
+  padding: 0.6rem 1.75rem;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.browseLink:hover {
+  border-color: var(--gold);
+  background: rgba(201, 149, 58, 0.06);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .massRow {
+    grid-template-columns: 100px 1fr auto;
+    gap: 0.75rem;
+    padding: 0.75rem 0.75rem;
+  }
+
+  .watchCol {
+    display: none;
+  }
+
+  .massTypeCol {
+    display: none;
+  }
+
+  .massLocalTime {
+    font-size: 1.05rem;
+  }
+
+  .massName {
+    font-size: 0.95rem;
+  }
+
+  .massParish {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tzBar {
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: center;
+  }
+
+  .massRow {
+    grid-template-columns: 85px 1fr;
+    gap: 0.5rem;
+  }
+}

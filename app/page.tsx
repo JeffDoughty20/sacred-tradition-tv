@@ -1,4 +1,5 @@
 import styles from './page.module.css'
+import MassSchedule from './MassSchedule'
 
 export default function Home() {
   return (
@@ -45,138 +46,9 @@ export default function Home() {
           <span className={styles.headerOrnamentFlip}>❧</span>
         </div>
         <p className={styles.sectionSubtitle}>
-          The Traditional Latin Mass, offered reverently and without interruption
+          The Traditional Latin Mass &middot; Click any Mass to watch live
         </p>
-        <div className={styles.massGrid}>
-          <div className={styles.massCard}>
-            <div className={styles.massCardAccent} />
-            <div className={styles.massIcon}>☩</div>
-            <h3 className={styles.massTime}>7:00 AM</h3>
-            <div className={styles.massDivider} />
-            <p className={styles.massType}>Low Mass</p>
-            <p className={styles.massDesc}>
-              A quiet, contemplative offering of the Holy Sacrifice to begin the day in prayer
-            </p>
-          </div>
-          <div className={styles.massCard}>
-            <div className={styles.massCardAccent} />
-            <div className={styles.massIcon}>☩</div>
-            <h3 className={styles.massTime}>9:00 AM</h3>
-            <div className={styles.massDivider} />
-            <p className={styles.massType}>Sung Mass</p>
-            <p className={styles.massDesc}>
-              The Missa Cantata with Gregorian propers and sacred polyphony
-            </p>
-          </div>
-          <div className={styles.massCardFeatured}>
-            <div className={styles.massCardAccentGold} />
-            <div className={styles.massIconFeatured}>☩</div>
-            <h3 className={styles.massTime}>12:00 PM</h3>
-            <div className={styles.massDivider} />
-            <p className={styles.massType}>Solemn High Mass</p>
-            <p className={styles.massDesc}>
-              The full solemnity of the Traditional Rite with deacon, subdeacon, and sacred ministers
-            </p>
-          </div>
-        </div>
-        <p className={styles.scheduleNote}>
-          All times Eastern &middot; Schedule subject to change on Holy Days of Obligation
-        </p>
-      </section>
-
-      {/* Today's Schedule */}
-      <section className={styles.todaySchedule}>
-        <div className={styles.sectionHeader}>
-          <span className={styles.headerOrnament}>❧</span>
-          <h2 className={styles.sectionTitle}>Today&apos;s Schedule</h2>
-          <span className={styles.headerOrnamentFlip}>❧</span>
-        </div>
-        <p className={styles.sectionSubtitle}>
-          Select a Mass or devotion to watch
-        </p>
-        <div className={styles.scheduleGrid}>
-          <a href="https://www.youtube.com/channel/UC1nuBPRlL4Y-e6dsN_HQbOA/live" target="_blank" rel="noopener noreferrer" className={styles.scheduleCard}>
-            <div className={styles.scheduleThumb}>
-              <img src="https://i.ytimg.com/vi/9sdEb-5laaw/hqdefault.jpg" alt="Low Mass" className={styles.thumbImg} />
-              <span className={styles.scheduleTime}>7:00 AM</span>
-            </div>
-            <div className={styles.scheduleInfo}>
-              <h3 className={styles.scheduleName}>Low Mass</h3>
-              <p className={styles.scheduleParish}>FSSP Phoenix, AZ</p>
-            </div>
-          </a>
-          <a href="https://www.youtube.com/channel/UC-HuFJsZMy5CdwfXp9j-J0Q/live" target="_blank" rel="noopener noreferrer" className={styles.scheduleCard}>
-            <div className={styles.scheduleThumb}>
-              <img src="https://i.ytimg.com/vi/I3u0hzjGQMA/hqdefault.jpg" alt="Sung Mass" className={styles.thumbImg} />
-              <span className={styles.scheduleTime}>9:00 AM</span>
-            </div>
-            <div className={styles.scheduleInfo}>
-              <h3 className={styles.scheduleName}>Sung Mass</h3>
-              <p className={styles.scheduleParish}>Shrine of St. Elizabeth, Cleveland</p>
-            </div>
-          </a>
-          <a href="https://www.youtube.com/channel/UCBb7H5dkIrNjCmwBSwUX9Zw/live" target="_blank" rel="noopener noreferrer" className={styles.scheduleCard}>
-            <div className={styles.scheduleThumb}>
-              <img src="https://i.ytimg.com/vi/9sdEb-5laaw/hqdefault.jpg" alt="Solemn High Mass" className={styles.thumbImg} />
-              <span className={styles.scheduleTime}>12:00 PM</span>
-              <span className={styles.scheduleFeatured}>Featured</span>
-            </div>
-            <div className={styles.scheduleInfo}>
-              <h3 className={styles.scheduleName}>Solemn High Mass</h3>
-              <p className={styles.scheduleParish}>ICRSS Chicago, IL</p>
-            </div>
-          </a>
-          <a href="https://www.youtube.com/channel/UCp3fLkScbe6hjEBncVk-EoA/live" target="_blank" rel="noopener noreferrer" className={styles.scheduleCard}>
-            <div className={styles.scheduleThumb}>
-              <img src="https://i.ytimg.com/vi/9sdEb-5laaw/hqdefault.jpg" alt="Rosary" className={styles.thumbImg} />
-              <span className={styles.scheduleTime}>3:00 PM</span>
-            </div>
-            <div className={styles.scheduleInfo}>
-              <h3 className={styles.scheduleName}>Holy Rosary</h3>
-              <p className={styles.scheduleParish}>FSSP Sacramento, CA</p>
-            </div>
-          </a>
-          <a href="https://www.youtube.com/channel/UCDiftFDDgXrRDSIeffAtY4A/live" target="_blank" rel="noopener noreferrer" className={styles.scheduleCard}>
-            <div className={styles.scheduleThumb}>
-              <img src="https://i.ytimg.com/vi/9sdEb-5laaw/hqdefault.jpg" alt="Evening Mass" className={styles.thumbImg} />
-              <span className={styles.scheduleTime}>6:00 PM</span>
-            </div>
-            <div className={styles.scheduleInfo}>
-              <h3 className={styles.scheduleName}>Evening Mass</h3>
-              <p className={styles.scheduleParish}>FSSP Kansas City</p>
-            </div>
-          </a>
-          <a href="/masses" className={styles.scheduleCardMore}>
-            <div className={styles.moreIcon}>✠</div>
-            <h3 className={styles.moreName}>Browse All</h3>
-            <p className={styles.moreDesc}>43+ Live Mass Channels</p>
-          </a>
-        </div>
-      </section>
-
-      {/* Featured Stream */}
-      <section className={styles.livestream}>
-        <div className={styles.sectionHeader}>
-          <span className={styles.headerOrnament}>❧</span>
-          <h2 className={styles.sectionTitle}>Now Streaming</h2>
-          <span className={styles.headerOrnamentFlip}>❧</span>
-        </div>
-        <p className={styles.sectionSubtitle}>
-          Solemn High Mass &middot; 12:00 PM Eastern
-        </p>
-        <div className={styles.videoWrapper}>
-          <iframe
-            src="https://www.youtube.com/embed/9sdEb-5laaw"
-            title="Solemn High Mass - Sacred Tradition TV"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className={styles.videoFrame}
-          />
-        </div>
-        <p className={styles.streamNote}>
-          Live from the altar &middot; Join us daily for the Holy Sacrifice of the Mass
-        </p>
+        <MassSchedule />
       </section>
 
       {/* Daily Devotions */}
