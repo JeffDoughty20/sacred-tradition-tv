@@ -39,63 +39,6 @@ export default function Home() {
         <MassSchedule />
       </section>
 
-      {/* Daily Devotions */}
-      <section className={styles.devotions}>
-        <div className={styles.devotionsInner}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.headerOrnamentLight}>❧</span>
-            <h2 className={styles.sectionTitleLight}>Sacred Devotions</h2>
-            <span className={styles.headerOrnamentLightFlip}>❧</span>
-          </div>
-          <div className={styles.devotionGrid}>
-            <div className={styles.devotionCard}>
-              <div className={styles.devotionIcon}>📿</div>
-              <h3 className={styles.devotionTitle}>Daily Holy Rosary</h3>
-              <p className={styles.devotionTime}>3:00 PM Eastern</p>
-              <div className={styles.devotionDivider} />
-              <p className={styles.devotionDesc}>
-                Join the faithful in praying the Most Holy Rosary of the Blessed Virgin Mary.
-                The appropriate mysteries for each day with meditations and sacred music between decades.
-              </p>
-            </div>
-            <div className={styles.devotionCard}>
-              <div className={styles.devotionIcon}>♱</div>
-              <h3 className={styles.devotionTitle}>Benediction &amp; Litanies</h3>
-              <p className={styles.devotionTime}>Following Evening Mass</p>
-              <div className={styles.devotionDivider} />
-              <p className={styles.devotionDesc}>
-                Benediction of the Most Blessed Sacrament, Litany of the Saints,
-                and traditional evening prayers of the Church.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Gregorian Chant */}
-      <section className={styles.chant}>
-        <div className={styles.sectionHeader}>
-          <span className={styles.headerOrnament}>❧</span>
-          <h2 className={styles.sectionTitle}>Gregorian Chant</h2>
-          <span className={styles.headerOrnamentFlip}>❧</span>
-        </div>
-        <p className={styles.sectionSubtitle}>
-          Sacred music to lift the mind and heart to God
-        </p>
-        <div className={styles.chantCard}>
-          <div className={styles.chantNeumes}>♪ ♫ ♪ ♫ ♪</div>
-          <p className={styles.chantText}>
-            Between scheduled programming, Sacred Tradition TV streams the timeless beauty
-            of Gregorian Chant — the proper liturgical music of the Roman Rite.
-            Hymns, antiphons, and propers from the Church&apos;s treasury of sacred music,
-            available around the clock for prayer, meditation, and spiritual reading.
-          </p>
-          <div className={styles.chantBadge}>
-            ✦ Streaming 24/7 ✦
-          </div>
-        </div>
-      </section>
-
       {/* Donation section */}
       <section className={styles.donation}>
         <div className={styles.donationCard}>
