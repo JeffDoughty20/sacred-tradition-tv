@@ -41,17 +41,57 @@
   z-index: 0;
 }
 
-/* ===== Mass Hero ===== */
-.massHero {
+/* ===== Logo Banner ===== */
+.logoBanner {
   width: 100%;
-  min-height: 75vh;
+  background: linear-gradient(180deg, #1A0A06 0%, #2E1909 50%, #1A0A06 100%);
+  border-bottom: 2px solid var(--gold);
   position: relative;
+  z-index: 2;
+}
+
+.logoBannerInner {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1.5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.logoBannerInner::before,
+.logoBannerInner::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), rgba(201, 149, 58, 0.3));
+}
+
+.logoBannerInner::after {
+  background: linear-gradient(270deg, transparent, var(--gold), rgba(201, 149, 58, 0.3));
+}
+
+.logo {
+  width: clamp(200px, 30vw, 320px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.6));
+  border-radius: 4px;
+  margin: 0 2rem;
+}
+
+/* ===== Mass Hero ===== */
+.massHero {
+  width: 100%;
+  min-height: 42vh;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   background-image: url('/mass.png');
   background-size: cover;
-  background-position: center 30%;
+  background-position: center 45%;
   z-index: 1;
 }
 
@@ -60,10 +100,9 @@
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(30, 10, 8, 0.35) 0%,
-    rgba(30, 10, 8, 0.15) 30%,
-    rgba(30, 10, 8, 0.15) 60%,
-    rgba(30, 10, 8, 0.6) 85%,
+    rgba(30, 10, 8, 0.15) 0%,
+    rgba(30, 10, 8, 0.05) 40%,
+    rgba(30, 10, 8, 0.3) 70%,
     rgba(253, 248, 240, 1) 100%
   );
 }
@@ -72,37 +111,7 @@
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 2rem;
-  animation: fadeIn 2.5s ease-out;
-}
-
-.logo {
-  width: clamp(260px, 42vw, 400px);
-  height: auto;
-  margin: 0 auto;
-  display: block;
-  filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.5));
-  border-radius: 6px;
-}
-
-.divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin: 1.5rem 0 0.75rem;
-}
-
-.dividerLine {
-  width: clamp(60px, 15vw, 140px);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
-}
-
-.dividerCross {
-  color: var(--gold-light);
-  font-size: 1rem;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  padding: 2rem 2rem 3rem;
 }
 
 .tagline {
@@ -112,7 +121,7 @@
   color: var(--cream);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
 }
 
 /* ===== Banner ===== */
@@ -642,7 +651,7 @@
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
   .massHero {
-    min-height: 70vh;
+    min-height: 35vh;
   }
 
   .massGrid {
@@ -663,7 +672,7 @@
 
 @media (max-width: 480px) {
   .massHero {
-    min-height: 60vh;
+    min-height: 28vh;
   }
 
   .massContent {

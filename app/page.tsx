@@ -6,20 +6,21 @@ export default function Home() {
       {/* Watermark background */}
       <div className={styles.watermark} />
 
-      {/* Mass Hero Image */}
-      <section className={styles.massHero}>
-        <div className={styles.massOverlay} />
-        <div className={styles.massContent}>
+      {/* Logo Banner */}
+      <section className={styles.logoBanner}>
+        <div className={styles.logoBannerInner}>
           <img
             src="/logo.png"
             alt="Sacred Tradition Television"
             className={styles.logo}
           />
-          <div className={styles.divider}>
-            <span className={styles.dividerLine} />
-            <span className={styles.dividerCross}>✦</span>
-            <span className={styles.dividerLine} />
-          </div>
+        </div>
+      </section>
+
+      {/* Mass Hero Image */}
+      <section className={styles.massHero}>
+        <div className={styles.massOverlay} />
+        <div className={styles.massContent}>
           <p className={styles.tagline}>A Digital Chapel for the Faithful</p>
         </div>
       </section>
