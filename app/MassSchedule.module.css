@@ -1,79 +1,74 @@
 .wrapper { width: 100%; max-width: 960px; }
 
 /* ===== TV Frame ===== */
-.tvFrame { border: 3px solid #2E1909; border-radius: 4px; overflow: hidden; box-shadow: 0 8px 40px rgba(46,25,9,0.25), 0 2px 8px rgba(0,0,0,0.15); background: #0a0a0a; }
+.tvFrame { border: 3px solid #2E1909; border-radius: 4px; overflow: hidden; box-shadow: 0 8px 40px rgba(46,25,9,0.25); background: #0a0a0a; }
 .tvBar { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 1rem; background: linear-gradient(180deg, #2E1909, #1A0A06); border-bottom: 1px solid rgba(201,149,58,0.3); }
 .tvBarLeft, .tvBarRight { min-width: 100px; }
 .tvBarRight { text-align: right; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.85rem; color: var(--gold-pale); }
-.tvBarCenter { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem; font-weight: 600; color: var(--gold); text-align: center; letter-spacing: 0.05em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 400px; }
-.tvLiveBadge { display: inline-flex; align-items: center; gap: 0.3rem; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.75rem; font-weight: 700; color: #fff; background: #c0392b; padding: 0.15rem 0.5rem; border-radius: 2px; letter-spacing: 0.1em; text-transform: uppercase; animation: pulseLive 2s ease-in-out infinite; }
-.tvOffAir { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.75rem; font-weight: 600; color: var(--gold-pale); opacity: 0.6; letter-spacing: 0.1em; text-transform: uppercase; }
+.tvBarCenter { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem; font-weight: 600; color: var(--gold); text-align: center; letter-spacing: 0.05em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 400px; }
+.tvLiveBadge { display: inline-flex; align-items: center; gap: 0.3rem; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.75rem; font-weight: 700; color: #fff; background: #c0392b; padding: 0.15rem 0.5rem; border-radius: 2px; letter-spacing: 0.1em; text-transform: uppercase; }
+.tvOffAir { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.75rem; color: var(--gold-pale); opacity: 0.6; letter-spacing: 0.1em; text-transform: uppercase; }
+.liveDot { width: 6px; height: 6px; background: #fff; border-radius: 50%; display: inline-block; animation: pulse 1.5s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-.liveDot { width: 6px; height: 6px; background: #fff; border-radius: 50%; display: inline-block; animation: pulseDot 1.5s ease-in-out infinite; }
-.liveDotSmall { width: 8px; height: 8px; background: #c0392b; border-radius: 50%; display: inline-block; animation: pulseDot 1.5s ease-in-out infinite; }
-
-@keyframes pulseLive { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
-@keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-/* ===== TV Screen ===== */
 .tvScreen { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; background: #000; }
 .tvIframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 .tvOffScreen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-.tvOffImage { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3; }
-.tvOffOverlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at center, rgba(0,0,0,0.3), rgba(0,0,0,0.7)); }
-.tvOffContent { text-align: center; padding: 2rem; }
-.tvOffCross { font-size: 1.5rem; color: var(--gold); margin-bottom: 0.75rem; }
-.tvOffTitle { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 600; color: var(--cream); margin-bottom: 0.75rem; letter-spacing: 0.05em; }
-.tvOffSub { font-family: 'EB Garamond', Georgia, serif; font-size: 0.9rem; color: var(--gold-pale); opacity: 0.7; margin-bottom: 0.2rem; }
+.tvOffImage { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.25; }
+.tvOffOverlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at center, rgba(0,0,0,0.3), rgba(0,0,0,0.75)); }
+.tvOffContent { text-align: center; }
+.tvOffCross { font-size: 1.5rem; color: var(--gold); margin-bottom: 0.5rem; }
+.tvOffTitle { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--cream); margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+.tvOffSub { font-family: 'EB Garamond', Georgia, serif; font-size: 0.9rem; color: var(--gold-pale); opacity: 0.7; }
 
-/* ===== Status Bar ===== */
-.statusBar { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 1rem; background: rgba(46,25,9,0.06); border: 1px solid var(--gold-pale); border-radius: 2px; margin: 1rem 0 0.75rem; }
-.statusLabel { font-family: 'EB Garamond', Georgia, serif; font-size: 0.82rem; color: #4A3018; opacity: 0.7; }
+.tvInfoBar { display: flex; align-items: center; gap: 1rem; padding: 0.5rem 1rem; background: #1A0A06; border-top: 1px solid rgba(201,149,58,0.2); }
+.tvInfoName { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem; font-weight: 700; color: var(--gold); }
+.tvInfoSub { font-family: 'EB Garamond', Georgia, serif; font-size: 0.8rem; color: var(--gold-pale); opacity: 0.6; flex: 1; }
+.tvClose { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.75rem; color: rgba(255,255,255,0.6); background: none; border: 1px solid rgba(255,255,255,0.2); padding: 0.15rem 0.6rem; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+.tvClose:hover { color: #fff; border-color: rgba(255,255,255,0.5); }
 
-/* ===== Guide Header ===== */
-.guideHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; padding: 0 0.25rem; }
-.guideLabel { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.05rem; font-weight: 600; color: #3A0E18; letter-spacing: 0.08em; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; }
-.browseAllLink { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem; font-weight: 600; color: var(--burgundy); text-decoration: none; transition: color 0.2s; }
-.browseAllLink:hover { color: var(--gold); }
+/* ===== Row Sections ===== */
+.rowSection { margin-top: 2rem; }
 
-/* ===== Guide Scroll (Live Channels) ===== */
-.guideScroll { display: flex; gap: 0.85rem; overflow-x: auto; padding-bottom: 0.75rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; margin-bottom: 1rem; }
-.guideScroll::-webkit-scrollbar { height: 4px; }
-.guideScroll::-webkit-scrollbar-track { background: var(--cream-dark); border-radius: 2px; }
-.guideScroll::-webkit-scrollbar-thumb { background: var(--gold-pale); border-radius: 2px; }
+.rowHeader { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--gold); }
 
-.guideCard { flex: 0 0 240px; scroll-snap-align: start; border: 1px solid var(--gold-pale); border-radius: 3px; overflow: hidden; cursor: pointer; transition: all 0.25s ease; background: rgba(253,248,240,0.9); }
-.guideCard:hover { border-color: var(--gold); box-shadow: 0 4px 16px rgba(201,149,58,0.15); transform: translateY(-2px); }
-.guideCardLive { border-color: #c0392b; box-shadow: 0 0 0 1px #c0392b, 0 4px 16px rgba(192,57,43,0.2); }
-.guideCardLive:hover { box-shadow: 0 0 0 1px #c0392b, 0 6px 24px rgba(192,57,43,0.3); }
-.guideCardActive { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold), 0 4px 20px rgba(201,149,58,0.25); }
+.rowIcon { font-size: 1.1rem; color: var(--gold); }
 
-.guideThumb { position: relative; width: 100%; height: 0; padding-bottom: 56.25%; overflow: hidden; background: #1A0A06; }
-.guideThumbImg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-.guideThumbPlaceholder { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #2E1909, #4A3018); }
-.guideThumbIcon { font-size: 2rem; color: var(--gold); opacity: 0.5; }
+.rowTitle { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.3rem; font-weight: 700; color: #2E1909; letter-spacing: 0.05em; }
 
-.guideLiveBadge { position: absolute; top: 6px; left: 6px; display: inline-flex; align-items: center; gap: 0.25rem; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.65rem; font-weight: 700; color: #fff; background: #c0392b; padding: 0.1rem 0.4rem; border-radius: 2px; letter-spacing: 0.08em; text-transform: uppercase; animation: pulseLive 2s ease-in-out infinite; }
+.rowNote { font-family: 'EB Garamond', Georgia, serif; font-size: 0.85rem; font-style: italic; color: #7D532E; opacity: 0.7; margin-bottom: 0.75rem; }
 
-.guideInfo { padding: 0.6rem 0.7rem; }
-.guideName { display: block; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem; font-weight: 700; color: #1A0A06; line-height: 1.25; margin-bottom: 0.15rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.guideParish { display: block; font-family: 'EB Garamond', Georgia, serif; font-size: 0.78rem; color: #4A3018; opacity: 0.7; }
+/* ===== Horizontal Scroll ===== */
+.rowScroll { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 0.5rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+.rowScroll::-webkit-scrollbar { height: 4px; }
+.rowScroll::-webkit-scrollbar-track { background: rgba(232,213,168,0.3); border-radius: 2px; }
+.rowScroll::-webkit-scrollbar-thumb { background: var(--gold-pale); border-radius: 2px; }
 
-/* ===== Guide Note & Browse ===== */
-.guideNote { font-family: 'EB Garamond', Georgia, serif; font-size: 0.9rem; color: #4A3018; opacity: 0.7; text-align: center; margin-bottom: 1rem; line-height: 1.6; }
-.browseAllBox { text-align: center; margin-bottom: 0.5rem; }
-.browseAllButton { display: inline-block; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.05rem; font-weight: 600; color: var(--burgundy); text-decoration: none; border: 1px solid var(--gold-pale); padding: 0.7rem 2rem; border-radius: 2px; transition: all 0.3s; letter-spacing: 0.05em; }
-.browseAllButton:hover { border-color: var(--gold); background: rgba(201,149,58,0.06); }
+/* ===== Channel Cards ===== */
+.card { flex: 0 0 200px; scroll-snap-align: start; border: 2px solid transparent; border-radius: 4px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; background: #1A0A06; }
+.card:hover { border-color: var(--gold); box-shadow: 0 6px 20px rgba(201,149,58,0.2); transform: translateY(-3px); }
+.card:hover .cardOverlay { opacity: 1; }
+.card:hover .cardImg { transform: scale(1.05); }
+.cardActive { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold), 0 6px 24px rgba(201,149,58,0.3); }
+
+.cardThumb { position: relative; width: 100%; padding-bottom: 56.25%; overflow: hidden; }
+.cardImg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: all 0.4s ease; }
+.cardOverlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.3s; }
+.cardPlay { font-size: 2rem; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+
+.cardInfo { padding: 0.6rem 0.7rem; background: #1A0A06; }
+.cardName { display: block; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem; font-weight: 700; color: var(--gold); line-height: 1.2; margin-bottom: 0.1rem; }
+.cardSub { display: block; font-family: 'EB Garamond', Georgia, serif; font-size: 0.75rem; color: var(--gold-pale); opacity: 0.6; }
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
-  .guideCard { flex: 0 0 200px; }
+  .card { flex: 0 0 170px; }
   .tvBarCenter { max-width: 200px; font-size: 0.8rem; }
 }
 @media (max-width: 480px) {
-  .guideCard { flex: 0 0 170px; }
-  .tvBar { padding: 0.3rem 0.5rem; }
+  .card { flex: 0 0 155px; }
+  .tvBar, .tvInfoBar { padding: 0.3rem 0.5rem; }
   .tvBarLeft, .tvBarRight { min-width: 60px; }
-  .tvBarCenter { max-width: 150px; font-size: 0.75rem; }
-  .statusBar { flex-direction: column; gap: 0.15rem; text-align: center; }
+  .tvBarCenter { max-width: 140px; font-size: 0.75rem; }
+  .rowTitle { font-size: 1.1rem; }
 }
