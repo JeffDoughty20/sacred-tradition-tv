@@ -113,6 +113,8 @@ export async function GET() {
     publishedAt: string
   }> = []
 
+  let rawRecordedCount = 0
+
   const apiKey = process.env.YOUTUBE_API_KEY
   if (apiKey) {
     try {
@@ -121,19 +123,20 @@ export async function GET() {
       const publishedAfter = yesterday.toISOString()
 
       const res = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=latin+mass+tridentine+FSSP+SSPX&maxResults=25&order=date&publishedAfter=${encodeURIComponent(publishedAfter)}&key=${apiKey}`,
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=latin+mass&maxResults=25&order=date&publishedAfter=${encodeURIComponent(publishedAfter)}&key=${apiKey}`,
         { cache: 'no-store' }
       )
       const data = await res.json()
+      rawRecordedCount = data.items?.length || 0
       if (data.items) {
-        const latinKeywords = ['latin mass', 'tridentine', 'extraordinary form', 'missa', 'TLM', 'FSSP', 'SSPX', 'ICRSS', 'traditional mass', 'low mass', 'high mass', 'sung mass', 'solemn mass', 'messe', 'heilige messe', 'traditional catholic mass']
+        const latinKeywords = ['latin mass', 'tridentine', 'missa', 'tlm', 'fssp', 'sspx', 'icrss', 'traditional mass', 'low mass', 'high mass', 'sung mass', 'solemn mass', 'messe', 'heilige messe', 'traditional catholic']
         for (const item of data.items) {
           const vid = item.id?.videoId
           if (!vid || seen.has(vid)) continue
           const title = (item.snippet?.title || '').toLowerCase()
           const channel = (item.snippet?.channelTitle || '').toLowerCase()
           const combined = title + ' ' + channel
-          const isLatin = latinKeywords.some(kw => combined.includes(kw.toLowerCase()))
+          const isLatin = latinKeywords.some(kw => combined.includes(kw))
           if (!isLatin) continue
           seen.add(vid)
           recorded.push({
@@ -155,6 +158,7 @@ export async function GET() {
     upcomingCount: unique.filter(s => !s.isLive).length,
     recordedCount: recorded.length,
     checkedAt: new Date().toISOString(),
+    debug: { apiKeyPresent: !!apiKey, searchWindow: 'last 24h', rawFromYouTube: rawRecordedCount, afterFilter: recorded.length },
   }
 
   cache = { data: result, timestamp: now }
