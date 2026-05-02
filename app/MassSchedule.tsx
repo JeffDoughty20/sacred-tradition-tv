@@ -16,6 +16,7 @@ const DEFAULT_CHANT_VIDEO = 't8X34t77c-U'
 
 export default function MassSchedule() {
   const [streams, setStreams] = useState<Stream[]>([])
+  const [recorded, setRecorded] = useState<Array<{title: string; videoId: string; channelName: string; thumbnail: string; publishedAt: string}>>([])
   const [activeVideoId, setActiveVideoId] = useState<string>(DEFAULT_CHANT_VIDEO)
   const [activeTitle, setActiveTitle] = useState<string>('Gregorian Chant — Eucharistic Adoration')
   const [activeSub, setActiveSub] = useState<string>('Sacred Tradition Television')
@@ -30,6 +31,7 @@ export default function MassSchedule() {
       const res = await fetch('/api/live')
       const data = await res.json()
       if (data.streams) setStreams(data.streams)
+      if (data.recorded) setRecorded(data.recorded)
       if (data.liveCount !== undefined) setLiveCount(data.liveCount)
       if (data.checkedAt) {
         setLastChecked(new Date(data.checkedAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }))
@@ -205,6 +207,41 @@ export default function MassSchedule() {
           </div>
         </div>
       </div>
+
+      {/* === ROW 4: TODAY'S RECORDED MASSES === */}
+      {recorded.length > 0 && (
+        <div className={styles.rowSection}>
+          <div className={styles.rowHeader}>
+            <span className={styles.rowIcon}>▶</span>
+            <h3 className={styles.rowTitle}>Today&apos;s Recorded Masses</h3>
+            <span className={styles.rowCount}>{recorded.length} available</span>
+          </div>
+          <div className={styles.rowScroll}>
+            {recorded.map((r, i) => {
+              const isActive = activeVideoId === r.videoId
+              return (
+                <div key={i} className={`${styles.card} ${isActive ? styles.cardActive : ''}`} onClick={() => {
+                  setActiveVideoId(r.videoId)
+                  setActiveTitle(r.title)
+                  setActiveSub(r.channelName)
+                  setIsLiveActive(false)
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }}>
+                  <div className={styles.cardThumb}>
+                    <img src={r.thumbnail} alt={r.title} className={styles.cardImg} />
+                    <div className={styles.cardOverlay}><span className={styles.cardPlay}>▶</span></div>
+                    <span className={styles.cardOnDemand}>Recorded</span>
+                  </div>
+                  <div className={styles.cardInfo}>
+                    <span className={styles.cardName}>{r.title}</span>
+                    <span className={styles.cardSub}>{r.channelName}</span>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
 
       {/* === NO STREAMS MESSAGE === */}
       {streams.length === 0 && (
