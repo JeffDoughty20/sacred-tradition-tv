@@ -116,12 +116,13 @@ export async function GET() {
   const apiKey = process.env.YOUTUBE_API_KEY
   if (apiKey) {
     try {
-      // Look back 24 hours for recorded masses
-      const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000)
-      const publishedAfter = yesterday.toISOString()
+      // Get today's date at midnight UTC for the search
+      const today = new Date()
+      today.setUTCHours(0, 0, 0, 0)
+      const publishedAfter = today.toISOString()
 
       const res = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=latin+mass+tridentine+FSSP+SSPX&maxResults=25&order=date&publishedAfter=${encodeURIComponent(publishedAfter)}&key=${apiKey}`,
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=%22traditional+latin+mass%22+%22tridentine%22+%22extraordinary+form%22&maxResults=20&order=date&publishedAfter=${encodeURIComponent(publishedAfter)}&key=${apiKey}`,
         { cache: 'no-store' }
       )
       const data = await res.json()
