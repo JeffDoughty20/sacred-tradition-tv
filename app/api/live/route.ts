@@ -104,10 +104,57 @@ export async function GET() {
     return true
   })
 
+  // Method 3: Search YouTube API for today's recorded Latin Masses
+  const recorded: Array<{
+    title: string
+    videoId: string
+    channelName: string
+    thumbnail: string
+    publishedAt: string
+  }> = []
+
+  const apiKey = process.env.YOUTUBE_API_KEY
+  if (apiKey) {
+    try {
+      // Get today's date at midnight UTC for the search
+      const today = new Date()
+      today.setUTCHours(0, 0, 0, 0)
+      const publishedAfter = today.toISOString()
+
+      const res = await fetch(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=%22traditional+latin+mass%22+%22tridentine%22+%22extraordinary+form%22&maxResults=20&order=date&publishedAfter=${encodeURIComponent(publishedAfter)}&key=${apiKey}`,
+        { cache: 'no-store' }
+      )
+      const data = await res.json()
+      if (data.items) {
+        const latinKeywords = ['latin mass', 'tridentine', 'extraordinary form', 'missa', 'TLM', 'FSSP', 'SSPX', 'ICRSS', 'traditional mass', 'low mass', 'high mass', 'sung mass', 'solemn mass', 'messe', 'heilige messe', 'traditional catholic mass']
+        for (const item of data.items) {
+          const vid = item.id?.videoId
+          if (!vid || seen.has(vid)) continue
+          const title = (item.snippet?.title || '').toLowerCase()
+          const channel = (item.snippet?.channelTitle || '').toLowerCase()
+          const combined = title + ' ' + channel
+          const isLatin = latinKeywords.some(kw => combined.includes(kw.toLowerCase()))
+          if (!isLatin) continue
+          seen.add(vid)
+          recorded.push({
+            title: item.snippet?.title || '',
+            videoId: vid,
+            channelName: item.snippet?.channelTitle || '',
+            thumbnail: item.snippet?.thumbnails?.high?.url || item.snippet?.thumbnails?.medium?.url || '',
+            publishedAt: item.snippet?.publishedAt || '',
+          })
+        }
+      }
+    } catch { /* silent */ }
+  }
+
   const result = {
     streams: unique,
+    recorded,
     liveCount: unique.filter(s => s.isLive).length,
     upcomingCount: unique.filter(s => !s.isLive).length,
+    recordedCount: recorded.length,
     checkedAt: new Date().toISOString(),
   }
 
