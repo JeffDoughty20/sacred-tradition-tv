@@ -1,187 +1,116 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import styles from './MassSchedule.module.css'
 
-interface Channel {
-  name: string
-  subtitle: string
-  channelId?: string
-  videoId?: string
-  utcHour: number
-  utcMinute: number
-  isLive?: boolean // true = live stream channel, false = recorded/playlist
+interface Stream {
+  title: string
+  videoId: string
+  channelName: string
+  startTime: string | null
+  isLive: boolean
+  thumbnail: string
 }
 
-// Default Gregorian chant to play when site opens
-const DEFAULT_CHANT: Channel = {
-  name: 'Gregorian Chant — Eucharistic Adoration',
-  subtitle: 'Sacred Tradition Television',
-  videoId: 't8X34t77c-U',
-  utcHour: 0, utcMinute: 0,
-  isLive: false,
-}
-
-const latinMass: Channel[] = [
-  { name: 'FSSP Phoenix', subtitle: 'Phoenix, AZ', channelId: 'UC1nuBPRlL4Y-e6dsN_HQbOA', utcHour: 14, utcMinute: 0, isLive: true },
-  { name: 'Shrine of St. Elizabeth', subtitle: 'Cleveland, OH', channelId: 'UC-HuFJsZMy5CdwfXp9j-J0Q', utcHour: 11, utcMinute: 30, isLive: true },
-  { name: 'SSPX Toronto', subtitle: 'Toronto, Canada', channelId: 'UC_W1sjtJTk7pE1j-EUbR5Tg', utcHour: 11, utcMinute: 15, isLive: true },
-  { name: 'ICRSS Chicago', subtitle: 'Chicago, IL', channelId: 'UCBb7H5dkIrNjCmwBSwUX9Zw', utcHour: 12, utcMinute: 0, isLive: true },
-  { name: 'SSPX Paris — Low Mass', subtitle: 'Saint-Nicolas-du-Chardonnet', channelId: 'UCGNiUjfJu2KOf71MKz86z7A', utcHour: 5, utcMinute: 30, isLive: true },
-  { name: 'SSPX Paris — Sung Mass', subtitle: 'Saint-Nicolas-du-Chardonnet', channelId: 'UCGNiUjfJu2KOf71MKz86z7A', utcHour: 10, utcMinute: 0, isLive: true },
-  { name: 'SSPX Poland', subtitle: 'Warszawa', channelId: 'UCMa2Tt8bO4WMtgGhHNT8SvQ', utcHour: 16, utcMinute: 0, isLive: true },
-  { name: 'Oxford Oratory', subtitle: 'Oxford, England', channelId: 'UCZ6YQ4ZBs0fbeNPHl16YyFw', utcHour: 17, utcMinute: 0, isLive: true },
-]
-
-const chantAndRosary: Channel[] = [
-  { name: 'Gregorian Chant — Adoration', subtitle: 'Eucharistic Worship', videoId: 't8X34t77c-U', utcHour: 0, utcMinute: 0, isLive: false },
-  { name: 'SSPX Seminary — Rosary', subtitle: 'Daily at 4:00 PM ET', channelId: 'UCZoB5_BphShGRovMZ2AsG5A', utcHour: 20, utcMinute: 0, isLive: true },
-  { name: 'Monastic Chant — Adoration', subtitle: 'Before the Blessed Sacrament', videoId: 'utbPq43cryg', utcHour: 0, utcMinute: 0, isLive: false },
-  { name: 'SSPX Paris — Chapelet', subtitle: 'Daily Rosary', channelId: 'UCGNiUjfJu2KOf71MKz86z7A', utcHour: 15, utcMinute: 45, isLive: true },
-  { name: 'Chant — Peaceful Adoration', subtitle: 'Eucharistic Stillness', videoId: '1wHpLowoJsc', utcHour: 0, utcMinute: 0, isLive: false },
-  { name: 'Silverstream Priory', subtitle: 'Divine Office', channelId: 'UCpnItyslD0BqEOYBbTRy35w', utcHour: 19, utcMinute: 30, isLive: true },
-  { name: 'Divine Mercy Chants', subtitle: 'Healing Adoration', videoId: '57ufwhIe0M8', utcHour: 0, utcMinute: 0, isLive: false },
-]
-
-const vaticanLive: Channel[] = [
-  { name: 'Vatican News', subtitle: 'Official Vatican Channel', channelId: 'UCxIsefyl9g9A5SGWA4FvGIA', utcHour: 9, utcMinute: 0, isLive: true },
-  { name: 'Vatican Media', subtitle: 'Holy See Press Office', channelId: 'UCKMuFzwGVQ7PaGMwMvW0Fiw', utcHour: 9, utcMinute: 30, isLive: true },
-]
-
-function getLocalTime(utcHour: number, utcMinute: number): { time: string; label: string } {
-  const now = new Date()
-  const today = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), utcHour, utcMinute))
-  const tomorrow = new Date(today.getTime() + 86400000)
-
-  const nowMs = now.getTime()
-  const todayMs = today.getTime()
-
-  const minsSinceStart = (nowMs - todayMs) / 60000
-
-  // Currently streaming: from 5 min before to 90 min after start
-  if (minsSinceStart >= -5 && minsSinceStart <= 90) {
-    return { time: today.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true }), label: 'Now' }
-  } else if (todayMs > nowMs) {
-    return { time: today.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true }), label: 'Today' }
-  } else {
-    return { time: tomorrow.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true }), label: 'Tomorrow' }
-  }
-}
-
-function getEmbedUrl(ch: Channel): string {
-  if (ch.videoId) {
-    return `https://www.youtube.com/embed/${ch.videoId}?autoplay=1&rel=0&modestbranding=1`
-  }
-  if (ch.channelId) {
-    return `https://www.youtube.com/embed/live_stream?channel=${ch.channelId}&autoplay=1&rel=0&modestbranding=1`
-  }
-  return ''
-}
+const DEFAULT_CHANT_VIDEO = 't8X34t77c-U'
 
 export default function MassSchedule() {
-  const [active, setActive] = useState<Channel>(DEFAULT_CHANT)
+  const [streams, setStreams] = useState<Stream[]>([])
+  const [activeVideoId, setActiveVideoId] = useState<string>(DEFAULT_CHANT_VIDEO)
+  const [activeTitle, setActiveTitle] = useState<string>('Gregorian Chant — Eucharistic Adoration')
+  const [activeSub, setActiveSub] = useState<string>('Sacred Tradition Television')
+  const [isLiveActive, setIsLiveActive] = useState(false)
   const [currentTime, setCurrentTime] = useState('')
   const [timezone, setTimezone] = useState('')
-  const [thumbs, setThumbs] = useState<Record<string, string>>({})
+  const [liveCount, setLiveCount] = useState(0)
+  const [lastChecked, setLastChecked] = useState('')
+
+  const fetchStreams = useCallback(async () => {
+    try {
+      const res = await fetch('/api/live')
+      const data = await res.json()
+      if (data.streams) setStreams(data.streams)
+      if (data.liveCount !== undefined) setLiveCount(data.liveCount)
+      if (data.checkedAt) {
+        setLastChecked(new Date(data.checkedAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }))
+      }
+    } catch { /* silent */ }
+  }, [])
 
   useEffect(() => {
     setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone)
     const update = () => setCurrentTime(new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true }))
     update()
-    const i = setInterval(update, 30000)
-    fetch('/api/channels').then(r => r.json()).then(d => { if (d && typeof d === 'object') setThumbs(d) }).catch(() => {})
-    return () => clearInterval(i)
-  }, [])
+    const timeInt = setInterval(update, 30000)
+    fetchStreams()
+    const fetchInt = setInterval(fetchStreams, 5 * 60 * 1000)
+    return () => { clearInterval(timeInt); clearInterval(fetchInt) }
+  }, [fetchStreams])
 
-  const play = (ch: Channel) => {
-    setActive(ch)
+  const play = (s: Stream) => {
+    setActiveVideoId(s.videoId)
+    setActiveTitle(s.title)
+    setActiveSub(s.channelName)
+    setIsLiveActive(s.isLive)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const sortChannels = (channels: Channel[]) => {
-    return [...channels].sort((a, b) => {
-      // Non-live (recorded) content goes to the end
-      if (!a.isLive && b.isLive) return 1
-      if (a.isLive && !b.isLive) return -1
-      if (!a.isLive && !b.isLive) return 0
-
-      const now = new Date()
-      const nowMs = now.getTime()
-
-      const aStart = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), a.utcHour, a.utcMinute))
-      const bStart = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), b.utcHour, b.utcMinute))
-
-      const aSince = (nowMs - aStart.getTime()) / 60000
-      const bSince = (nowMs - bStart.getTime()) / 60000
-
-      // Currently streaming (within -5 to +90 min) gets highest priority
-      const aStreaming = aSince >= -5 && aSince <= 90
-      const bStreaming = bSince >= -5 && bSince <= 90
-
-      if (aStreaming && !bStreaming) return -1
-      if (!aStreaming && bStreaming) return 1
-      if (aStreaming && bStreaming) return aSince - bSince // most recently started first
-
-      // Then sort by next upcoming (today or tomorrow)
-      const aMin = aStart.getHours() * 60 + aStart.getMinutes()
-      const bMin = bStart.getHours() * 60 + bStart.getMinutes()
-      const nowMin = now.getHours() * 60 + now.getMinutes()
-
-      return ((aMin - nowMin + 1440) % 1440) - ((bMin - nowMin + 1440) % 1440)
-    })
+  const playChant = () => {
+    setActiveVideoId(DEFAULT_CHANT_VIDEO)
+    setActiveTitle('Gregorian Chant — Eucharistic Adoration')
+    setActiveSub('Sacred Tradition Television')
+    setIsLiveActive(false)
   }
 
-  const renderCard = (ch: Channel, i: number) => {
-    const thumb = ch.channelId ? thumbs[ch.channelId] : null
-    const isActive = active === ch || (active.channelId === ch.channelId && active.utcHour === ch.utcHour && active.videoId === ch.videoId)
-    const timeInfo = ch.isLive ? getLocalTime(ch.utcHour, ch.utcMinute) : null
+  const liveStreams = streams.filter(s => s.isLive)
+  const upcomingStreams = streams.filter(s => !s.isLive)
 
+  const formatTime = (utc: string | null) => {
+    if (!utc) return ''
+    try {
+      return new Date(utc).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })
+    } catch { return '' }
+  }
+
+  const formatDate = (utc: string | null) => {
+    if (!utc) return ''
+    try {
+      const d = new Date(utc)
+      const now = new Date()
+      const isToday = d.toDateString() === now.toDateString()
+      const tomorrow = new Date(now); tomorrow.setDate(tomorrow.getDate() + 1)
+      const isTomorrow = d.toDateString() === tomorrow.toDateString()
+      if (isToday) return 'Today'
+      if (isTomorrow) return 'Tomorrow'
+      return d.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })
+    } catch { return '' }
+  }
+
+  const renderCard = (s: Stream, i: number) => {
+    const isActive = activeVideoId === s.videoId
     return (
-      <div key={i} className={`${styles.card} ${isActive ? styles.cardActive : ''}`} onClick={() => play(ch)}>
+      <div key={i} className={`${styles.card} ${s.isLive ? styles.cardLive : ''} ${isActive ? styles.cardActive : ''}`} onClick={() => play(s)}>
         <div className={styles.cardThumb}>
-          {thumb ? (
-            <img src={thumb} alt={ch.name} className={styles.cardImg} />
-          ) : (
-            <div className={styles.cardPlaceholder}>
-              <span className={styles.cardPlaceholderIcon}>{ch.isLive ? '☩' : '♪'}</span>
-            </div>
-          )}
+          <img src={s.thumbnail} alt={s.title} className={styles.cardImg} />
           <div className={styles.cardOverlay}>
             <span className={styles.cardPlay}>▶</span>
           </div>
-          {timeInfo && (
-            <span className={`${styles.cardTime} ${timeInfo.label === 'Now' ? styles.cardTimeNow : ''}`}>
-              {timeInfo.time}
-            </span>
-          )}
-          {timeInfo && (
-            <span className={`${styles.cardLabel} ${timeInfo.label === 'Now' ? styles.cardLabelNow : timeInfo.label === 'Tomorrow' ? styles.cardLabelTomorrow : styles.cardLabelToday}`}>
-              {timeInfo.label}
-            </span>
-          )}
-          {!ch.isLive && (
-            <span className={styles.cardOnDemand}>On Demand</span>
+          {s.isLive ? (
+            <span className={styles.cardLiveBadge}><span className={styles.liveDot} /> LIVE</span>
+          ) : s.startTime ? (
+            <span className={styles.cardTime}>{formatTime(s.startTime)}</span>
+          ) : null}
+          {!s.isLive && s.startTime && (
+            <span className={styles.cardDate}>{formatDate(s.startTime)}</span>
           )}
         </div>
         <div className={styles.cardInfo}>
-          <span className={styles.cardName}>{ch.name}</span>
-          <span className={styles.cardSub}>{ch.subtitle}</span>
+          <span className={styles.cardName}>{s.title}</span>
+          <span className={styles.cardSub}>{s.channelName}</span>
         </div>
       </div>
     )
   }
-
-  const renderRow = (title: string, icon: string, channels: Channel[]) => (
-    <div className={styles.rowSection}>
-      <div className={styles.rowHeader}>
-        <span className={styles.rowIcon}>{icon}</span>
-        <h3 className={styles.rowTitle}>{title}</h3>
-      </div>
-      <div className={styles.rowScroll}>
-        {sortChannels(channels).map((ch, i) => renderCard(ch, i))}
-      </div>
-    </div>
-  )
 
   if (!timezone) return null
 
@@ -191,19 +120,20 @@ export default function MassSchedule() {
       <div className={styles.tvFrame}>
         <div className={styles.tvBar}>
           <div className={styles.tvBarLeft}>
-            {active.isLive !== false ? (
+            {isLiveActive ? (
               <span className={styles.tvLiveBadge}><span className={styles.liveDot} /> LIVE</span>
             ) : (
               <span className={styles.tvOnDemand}>♪ Adoration</span>
             )}
           </div>
-          <div className={styles.tvBarCenter}>{active.name}</div>
+          <div className={styles.tvBarCenter}>{activeTitle}</div>
           <div className={styles.tvBarRight}>{currentTime}</div>
         </div>
         <div className={styles.tvScreen}>
           <iframe
-            src={getEmbedUrl(active)}
-            title={active.name}
+            key={activeVideoId}
+            src={`https://www.youtube.com/embed/${activeVideoId}?autoplay=1&rel=0&modestbranding=1`}
+            title={activeTitle}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -211,15 +141,83 @@ export default function MassSchedule() {
           />
         </div>
         <div className={styles.tvInfoBar}>
-          <span className={styles.tvInfoName}>{active.name}</span>
-          <span className={styles.tvInfoSub}>{active.subtitle}</span>
-          <span className={styles.tvInfoTz}>{timezone.replace(/_/g, ' ')}</span>
+          <span className={styles.tvInfoName}>{activeTitle}</span>
+          <span className={styles.tvInfoSub}>{activeSub}</span>
+          {activeVideoId !== DEFAULT_CHANT_VIDEO && (
+            <button className={styles.tvChantBtn} onClick={playChant}>♪ Chant</button>
+          )}
         </div>
       </div>
 
-      {renderRow('Traditional Latin Mass', '☩', latinMass)}
-      {renderRow('Gregorian Chant & Holy Rosary', '♪', chantAndRosary)}
-      {renderRow('Vatican Live', '🔑', vaticanLive)}
+      {/* === STATUS BAR === */}
+      <div className={styles.statusBar}>
+        <span className={styles.statusLabel}>{timezone.replace(/_/g, ' ')}</span>
+        <span className={styles.statusLabel}>
+          {liveCount > 0 ? `${liveCount} live now` : 'No live streams'} · Updated {lastChecked || '...'}
+        </span>
+      </div>
+
+      {/* === ROW 1: LIVE NOW === */}
+      {liveStreams.length > 0 && (
+        <div className={styles.rowSection}>
+          <div className={styles.rowHeader}>
+            <span className={styles.rowIcon}><span className={styles.liveDotBig} /></span>
+            <h3 className={styles.rowTitle}>Live Now</h3>
+            <span className={styles.rowCount}>{liveStreams.length} streaming</span>
+          </div>
+          <div className={styles.rowScroll}>
+            {liveStreams.map((s, i) => renderCard(s, i))}
+          </div>
+        </div>
+      )}
+
+      {/* === ROW 2: UPCOMING MASSES === */}
+      {upcomingStreams.length > 0 && (
+        <div className={styles.rowSection}>
+          <div className={styles.rowHeader}>
+            <span className={styles.rowIcon}>☩</span>
+            <h3 className={styles.rowTitle}>Upcoming Masses &amp; Devotions</h3>
+            <span className={styles.rowCount}>{upcomingStreams.length} scheduled</span>
+          </div>
+          <div className={styles.rowScroll}>
+            {upcomingStreams.map((s, i) => renderCard(s, i))}
+          </div>
+        </div>
+      )}
+
+      {/* === ROW 3: GREGORIAN CHANT === */}
+      <div className={styles.rowSection}>
+        <div className={styles.rowHeader}>
+          <span className={styles.rowIcon}>♪</span>
+          <h3 className={styles.rowTitle}>Gregorian Chant &amp; Adoration</h3>
+        </div>
+        <div className={styles.rowScroll}>
+          <div className={`${styles.card} ${activeVideoId === DEFAULT_CHANT_VIDEO ? styles.cardActive : ''}`} onClick={playChant}>
+            <div className={styles.cardThumb}>
+              <img src="/mass.png" alt="Gregorian Chant" className={styles.cardImg} />
+              <div className={styles.cardOverlay}><span className={styles.cardPlay}>▶</span></div>
+              <span className={styles.cardOnDemand}>Always On</span>
+            </div>
+            <div className={styles.cardInfo}>
+              <span className={styles.cardName}>Gregorian Chant — Adoration</span>
+              <span className={styles.cardSub}>Eucharistic Worship</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* === NO STREAMS MESSAGE === */}
+      {streams.length === 0 && (
+        <div className={styles.noStreams}>
+          <p className={styles.noStreamsText}>Loading live schedule...</p>
+          <p className={styles.noStreamsSub}>Checking Latin Mass streams worldwide</p>
+        </div>
+      )}
+
+      {/* === DIRECTORY LINK === */}
+      <div className={styles.browseAllBox}>
+        <a href="/masses" className={styles.browseAllButton}>✠ Browse Full Channel Directory</a>
+      </div>
     </div>
   )
 }
