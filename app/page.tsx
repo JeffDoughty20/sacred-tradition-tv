@@ -46,8 +46,8 @@ export default function Home() {
           <h2 className={styles.donationTitle}>Support Our Mission</h2>
           <div className={styles.donationDividerLine} />
           <p className={styles.donationText}>
-            Sacred Tradition TV is sustained entirely by the generosity of the faithful.
-            Your gift helps bring the Traditional Latin Mass and Catholic devotions to the
+            Sacred Tradition TV is sustained by the generosity of the faithful.
+            Your support helps bring the Traditional Latin Mass and Catholic devotions to the
             homebound, the isolated, and all who hunger for Tradition.
           </p>
           <p className={styles.donationText}>
@@ -55,7 +55,7 @@ export default function Home() {
           </p>
           <div className={styles.donationButtons}>
             <a
-              href="https://buy.stripe.com/test_bJe5kD3Kt94v5SOfGA08g00"
+              href="https://donate.stripe.com/28EeVdfphanxfDzdyPdjO00"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.donateButton}
@@ -64,8 +64,10 @@ export default function Home() {
             </a>
           </div>
           <p className={styles.donationNote}>
-            Sacred Tradition Media, Inc. is a nonprofit organization dedicated to
-            bringing the Traditional Latin Mass to the faithful.
+            Sacred Tradition TV is dedicated to bringing the Traditional Latin Mass
+            to the faithful. Your support helps keep Traditional Latin Mass streams
+            accessible to faithful Catholics worldwide. Contributions are not
+            tax-deductible at this time.
           </p>
         </div>
       </section>
@@ -94,7 +96,7 @@ export default function Home() {
           <em>Ad Majorem Dei Gloriam</em>
         </p>
         <p className={styles.footerCopy}>
-          &copy; 2026 Sacred Tradition Media, Inc.
+          &copy; 2026 Sacred Tradition TV &middot; A project of G3AI Platform LLC
         </p>
       </footer>
     </main>
