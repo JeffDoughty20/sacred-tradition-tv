@@ -96,7 +96,7 @@ export default function Home() {
           <em>Ad Majorem Dei Gloriam</em>
         </p>
         <p className={styles.footerCopy}>
-          &copy; 2026 Sacred Tradition TV &middot; A project of G3AI Platform LLC
+          &copy; 2026 Sacred Tradition TV
         </p>
       </footer>
     </main>
