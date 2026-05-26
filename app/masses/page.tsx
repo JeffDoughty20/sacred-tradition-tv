@@ -35,6 +35,7 @@ const channels = {
   sspx: [
     { name: 'SSPX Seminary USA', url: 'https://www.youtube.com/channel/UCZoB5_BphShGRovMZ2AsG5A/live' },
     { name: 'SSPX Phoenix, AZ', url: 'https://www.youtube.com/channel/UCTvY1fvpD7jnT-uKEyuTSaw/live' },
+    { name: 'Our Lady of Sorrows Priory, Phoenix, AZ', url: 'https://www.youtube.com/channel/UCHJ-3FHV4SaAApHUkpu1WWw/live' },
     { name: "SSPX Saint Mary's, KS", url: 'https://www.youtube.com/channel/UC7b-QQ7PbrZs6yAUdJkSL7w/live' },
     { name: 'SSPX Sanford, FL', url: 'https://www.youtube.com/channel/UC5AwyRmhCooK05cufOGAG1w/live' },
     { name: 'SSPX Los Angeles, CA', url: 'https://www.youtube.com/channel/UC9YlPkoxPrcjbqH6fL-sJ7g/live' },
@@ -175,7 +176,7 @@ export default function LiveMasses() {
           <span className={styles.footerLine} />
         </div>
         <p className={styles.footerMotto}><em>Ad Majorem Dei Gloriam</em></p>
-        <p className={styles.footerCopy}>&copy; 2026 Sacred Tradition Media, Inc.</p>
+        <p className={styles.footerCopy}>&copy; 2026 Sacred Tradition TV</p>
       </footer>
     </main>
   )

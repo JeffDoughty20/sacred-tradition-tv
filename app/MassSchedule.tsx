@@ -12,11 +12,20 @@ interface Stream {
   thumbnail: string
 }
 
+interface RecordedItem {
+  title: string
+  videoId: string
+  channelName: string
+  thumbnail: string
+  publishedAt: string
+}
+
 const DEFAULT_CHANT_VIDEO = 't8X34t77c-U'
 
 export default function MassSchedule() {
   const [streams, setStreams] = useState<Stream[]>([])
-  const [recorded, setRecorded] = useState<Array<{title: string; videoId: string; channelName: string; thumbnail: string; publishedAt: string}>>([])
+  const [recorded, setRecorded] = useState<RecordedItem[]>([])
+  const [recordedWeek, setRecordedWeek] = useState<RecordedItem[]>([])
   const [activeVideoId, setActiveVideoId] = useState<string>(DEFAULT_CHANT_VIDEO)
   const [activeTitle, setActiveTitle] = useState<string>('Gregorian Chant — Eucharistic Adoration')
   const [activeSub, setActiveSub] = useState<string>('Sacred Tradition Television')
@@ -32,6 +41,7 @@ export default function MassSchedule() {
       const data = await res.json()
       if (data.streams) setStreams(data.streams)
       if (data.recorded) setRecorded(data.recorded)
+      if (data.recordedWeek) setRecordedWeek(data.recordedWeek)
       if (data.liveCount !== undefined) setLiveCount(data.liveCount)
       if (data.checkedAt) {
         setLastChecked(new Date(data.checkedAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }))
@@ -54,6 +64,14 @@ export default function MassSchedule() {
     setActiveTitle(s.title)
     setActiveSub(s.channelName)
     setIsLiveActive(s.isLive)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const playRecorded = (r: RecordedItem) => {
+    setActiveVideoId(r.videoId)
+    setActiveTitle(r.title)
+    setActiveSub(r.channelName)
+    setIsLiveActive(false)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -88,6 +106,18 @@ export default function MassSchedule() {
     } catch { return '' }
   }
 
+  // Day label for recorded items (e.g. "Sunday", "Mon, May 25")
+  const formatDay = (utc: string) => {
+    if (!utc) return ''
+    try {
+      const d = new Date(utc)
+      const now = new Date()
+      const diffDays = Math.floor((now.getTime() - d.getTime()) / (24 * 60 * 60 * 1000))
+      if (diffDays <= 6) return d.toLocaleDateString([], { weekday: 'long' })
+      return d.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })
+    } catch { return '' }
+  }
+
   const renderCard = (s: Stream, i: number) => {
     const isActive = activeVideoId === s.videoId
     return (
@@ -109,6 +139,26 @@ export default function MassSchedule() {
         <div className={styles.cardInfo}>
           <span className={styles.cardName}>{s.title}</span>
           <span className={styles.cardSub}>{s.channelName}</span>
+        </div>
+      </div>
+    )
+  }
+
+  const renderRecordedCard = (r: RecordedItem, i: number, showDay: boolean) => {
+    const isActive = activeVideoId === r.videoId
+    return (
+      <div key={i} className={`${styles.card} ${isActive ? styles.cardActive : ''}`} onClick={() => playRecorded(r)}>
+        <div className={styles.cardThumb}>
+          <img src={r.thumbnail} alt={r.title} className={styles.cardImg} />
+          <div className={styles.cardOverlay}><span className={styles.cardPlay}>▶</span></div>
+          <span className={styles.cardOnDemand}>Recorded</span>
+          {showDay && r.publishedAt && (
+            <span className={styles.cardDate}>{formatDay(r.publishedAt)}</span>
+          )}
+        </div>
+        <div className={styles.cardInfo}>
+          <span className={styles.cardName}>{r.title}</span>
+          <span className={styles.cardSub}>{r.channelName}</span>
         </div>
       </div>
     )
@@ -217,36 +267,29 @@ export default function MassSchedule() {
             <span className={styles.rowCount}>{recorded.length} available</span>
           </div>
           <div className={styles.rowScroll}>
-            {recorded.map((r, i) => {
-              const isActive = activeVideoId === r.videoId
-              return (
-                <div key={i} className={`${styles.card} ${isActive ? styles.cardActive : ''}`} onClick={() => {
-                  setActiveVideoId(r.videoId)
-                  setActiveTitle(r.title)
-                  setActiveSub(r.channelName)
-                  setIsLiveActive(false)
-                  window.scrollTo({ top: 0, behavior: 'smooth' })
-                }}>
-                  <div className={styles.cardThumb}>
-                    <img src={r.thumbnail} alt={r.title} className={styles.cardImg} />
-                    <div className={styles.cardOverlay}><span className={styles.cardPlay}>▶</span></div>
-                    <span className={styles.cardOnDemand}>Recorded</span>
-                  </div>
-                  <div className={styles.cardInfo}>
-                    <span className={styles.cardName}>{r.title}</span>
-                    <span className={styles.cardSub}>{r.channelName}</span>
-                  </div>
-                </div>
-              )
-            })}
+            {recorded.map((r, i) => renderRecordedCard(r, i, false))}
+          </div>
+        </div>
+      )}
+
+      {/* === ROW 5: THIS WEEK'S MASSES === */}
+      {recordedWeek.length > 0 && (
+        <div className={styles.rowSection}>
+          <div className={styles.rowHeader}>
+            <span className={styles.rowIcon}>✠</span>
+            <h3 className={styles.rowTitle}>This Week&apos;s Masses</h3>
+            <span className={styles.rowCount}>{recordedWeek.length} available</span>
+          </div>
+          <div className={styles.rowScroll}>
+            {recordedWeek.map((r, i) => renderRecordedCard(r, i, true))}
           </div>
         </div>
       )}
 
       {/* === NO STREAMS MESSAGE === */}
-      {streams.length === 0 && (
+      {streams.length === 0 && recorded.length === 0 && recordedWeek.length === 0 && (
         <div className={styles.noStreams}>
-          <p className={styles.noStreamsText}>Loading live schedule...</p>
+          <p className={styles.noStreamsText}>Loading schedule...</p>
           <p className={styles.noStreamsSub}>Checking Latin Mass streams worldwide</p>
         </div>
       )}

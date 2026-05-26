@@ -18,7 +18,7 @@ const CHANNEL_IDS = [
   'UCZoB5_BphShGRovMZ2AsG5A', 'UCTvY1fvpD7jnT-uKEyuTSaw', 'UC7b-QQ7PbrZs6yAUdJkSL7w',
   'UC5AwyRmhCooK05cufOGAG1w', 'UC9YlPkoxPrcjbqH6fL-sJ7g', 'UCwcR47Gy6U2StngG6FW9OEg',
   'UC_W1sjtJTk7pE1j-EUbR5Tg', 'UCGNiUjfJu2KOf71MKz86z7A', 'UCQKWgHLZxKCmIIRmok8tNuw',
-  'UCWHw6qGmRaxwErJqdtqvOJQ', 'UCMa2Tt8bO4WMtgGhHNT8SvQ',
+  'UCWHw6qGmRaxwErJqdtqvOJQ', 'UCMa2Tt8bO4WMtgGhHNT8SvQ', 'UCHJ-3FHV4SaAApHUkpu1WWw',
   // Diocesan & Other
   'UC-HuFJsZMy5CdwfXp9j-J0Q', 'UCblrlrqAau4Co8zdNG05q-A', 'UCAmIjqfkWf6pW-14htSl2WA',
   'UCZ6YQ4ZBs0fbeNPHl16YyFw', 'UCCd9cGbxpbLzjxqSsmiyznw', 'UCRRUmJAW2o_nh74VB3ijYxQ',
@@ -61,6 +61,7 @@ const CHANNEL_NAMES: Record<string, string> = {
   'UCQKWgHLZxKCmIIRmok8tNuw': 'SSPX Great Britain',
   'UCWHw6qGmRaxwErJqdtqvOJQ': 'SSPX Ireland',
   'UCMa2Tt8bO4WMtgGhHNT8SvQ': 'SSPX Poland',
+  'UCHJ-3FHV4SaAApHUkpu1WWw': 'Our Lady of Sorrows Priory, Phoenix, AZ',
   'UC-HuFJsZMy5CdwfXp9j-J0Q': 'Shrine of St. Elizabeth of Hungary, Cleveland, OH',
   'UCblrlrqAau4Co8zdNG05q-A': 'Una Voce Quad Cities, Davenport, IA',
   'UCAmIjqfkWf6pW-14htSl2WA': 'Schola Cantorum Miamiensis',
@@ -91,25 +92,25 @@ interface Recorded {
 // In-memory cache. Survives between requests on a warm Vercel container.
 let cache: {
   streams: Stream[]
-  recorded: Recorded[]
+  recorded: Recorded[]      // last 24 hours
+  recordedWeek: Recorded[]  // 24 hours to 7 days ago
   time: number
 } = {
   streams: [],
   recorded: [],
+  recordedWeek: [],
   time: 0,
 }
 
-const CACHE_TTL = 15 * 60 * 1000        // 15 minutes
-const LOOKBACK_HOURS = 24               // "Today's Recorded" window
+const CACHE_TTL = 15 * 60 * 1000          // 15 minutes
+const TODAY_HOURS = 24                     // "Today's Recorded" window
+const WEEK_HOURS = 7 * 24                   // "This Week" window (outer bound)
+const MAX_PER_CHANNEL = 15                  // recent uploads to pull per channel
 
-// YouTube uploads playlists are always 'UU' + channelId.slice(2)
 function uploadsPlaylistId(channelId: string): string {
   return 'UU' + channelId.slice(2)
 }
 
-// Returns { ok: true, items: [...] } on success (even if items is empty).
-// Returns { ok: false, items: [] } on any error (HTTP 4xx/5xx, network, quota).
-// This distinction is critical so we don't cache empty results from a failed call.
 async function fetchChannelUploads(
   channelId: string,
   apiKey: string
@@ -119,7 +120,7 @@ async function fetchChannelUploads(
       `https://www.googleapis.com/youtube/v3/playlistItems` +
       `?part=snippet,contentDetails` +
       `&playlistId=${uploadsPlaylistId(channelId)}` +
-      `&maxResults=5` +
+      `&maxResults=${MAX_PER_CHANNEL}` +
       `&key=${apiKey}`
     const res = await fetch(url, { cache: 'no-store' })
     if (!res.ok) return { ok: false, items: [] }
@@ -131,8 +132,6 @@ async function fetchChannelUploads(
   }
 }
 
-// Fetches videos.list in batches of 50. Returns a map of videoId -> video object
-// with snippet (incl. liveBroadcastContent) and liveStreamingDetails.
 async function fetchVideoDetails(
   videoIds: string[],
   apiKey: string
@@ -160,13 +159,21 @@ async function fetchVideoDetails(
   return details
 }
 
-function buildResponse(streams: Stream[], recorded: Recorded[], debug: any, time: number) {
+function buildResponse(
+  streams: Stream[],
+  recorded: Recorded[],
+  recordedWeek: Recorded[],
+  debug: any,
+  time: number
+) {
   return {
     streams,
     recorded,
+    recordedWeek,
     liveCount: streams.filter((s) => s.isLive).length,
     upcomingCount: streams.filter((s) => !s.isLive).length,
     recordedCount: recorded.length,
+    recordedWeekCount: recordedWeek.length,
     checkedAt: new Date(time).toISOString(),
     debug,
   }
@@ -176,33 +183,28 @@ export async function GET() {
   const now = Date.now()
   const apiKey = process.env.YOUTUBE_API_KEY
 
-  const debug: {
-    hasKey: boolean
-    fromCache: boolean
-    channelsOk: number
-    channelsFailed: number
-    videosTotal: number
-    classified: { live: number; upcoming: number; recorded: number; skipped: number }
-    err: string
-  } = {
+  const debug: any = {
     hasKey: !!apiKey,
     fromCache: false,
     channelsOk: 0,
     channelsFailed: 0,
     videosTotal: 0,
-    classified: { live: 0, upcoming: 0, recorded: 0, skipped: 0 },
+    classified: { live: 0, upcoming: 0, today: 0, week: 0, skipped: 0 },
     err: 'none',
   }
 
   if (!apiKey) {
     debug.err = 'YOUTUBE_API_KEY env var not set'
-    return NextResponse.json(buildResponse(cache.streams, cache.recorded, debug, now))
+    return NextResponse.json(
+      buildResponse(cache.streams, cache.recorded, cache.recordedWeek, debug, now)
+    )
   }
 
-  // Serve from cache if fresh
   if (cache.time > 0 && now - cache.time < CACHE_TTL) {
     debug.fromCache = true
-    return NextResponse.json(buildResponse(cache.streams, cache.recorded, debug, cache.time))
+    return NextResponse.json(
+      buildResponse(cache.streams, cache.recorded, cache.recordedWeek, debug, cache.time)
+    )
   }
 
   // --- Step 1: Fetch recent uploads from every channel in parallel ---
@@ -225,15 +227,22 @@ export async function GET() {
   }
   debug.videosTotal = allItems.length
 
-  // If no channels succeeded, the API is genuinely failing (quota, key revoked, etc.)
-  // Return whatever's in cache and DO NOT update cache.time so we'll retry on next request.
+  // If no channels succeeded, the API is genuinely failing. Keep cache, retry next request.
   if (debug.channelsOk === 0) {
     debug.fromCache = true
     debug.err = `all ${debug.channelsFailed} channel fetches failed (likely quota exhausted)`
-    return NextResponse.json(buildResponse(cache.streams, cache.recorded, debug, cache.time || now))
+    return NextResponse.json(
+      buildResponse(
+        cache.streams,
+        cache.recorded,
+        cache.recordedWeek,
+        debug,
+        cache.time || now
+      )
+    )
   }
 
-  // --- Step 2: Get live/upcoming/none status for every collected video ---
+  // --- Step 2: Status lookup for every collected video ---
   const videoIds: string[] = []
   for (const item of allItems) {
     const vid = item.playlistItem.contentDetails?.videoId
@@ -241,11 +250,13 @@ export async function GET() {
   }
   const details = await fetchVideoDetails(videoIds, apiKey)
 
-  // --- Step 3: Classify each video into live / upcoming / recorded ---
+  // --- Step 3: Classify ---
   const streams: Stream[] = []
   const recorded: Recorded[] = []
+  const recordedWeek: Recorded[] = []
   const seen = new Set<string>()
-  const since = new Date(now - LOOKBACK_HOURS * 60 * 60 * 1000)
+  const todayCutoff = new Date(now - TODAY_HOURS * 60 * 60 * 1000)
+  const weekCutoff = new Date(now - WEEK_HOURS * 60 * 60 * 1000)
 
   for (const entry of allItems) {
     const videoId = entry.playlistItem.contentDetails?.videoId
@@ -253,36 +264,9 @@ export async function GET() {
     seen.add(videoId)
 
     const detail = details[videoId]
-    if (!detail) {
-      // videos.list call failed for this batch — fall back to treating as recorded
-      // if recent, otherwise skip
-      const publishedAt =
-        entry.playlistItem.contentDetails?.videoPublishedAt ||
-        entry.playlistItem.snippet?.publishedAt
-      if (!publishedAt || new Date(publishedAt) < since) {
-        debug.classified.skipped++
-        continue
-      }
-      recorded.push({
-        title: entry.playlistItem.snippet?.title || '',
-        videoId,
-        channelName:
-          entry.playlistItem.snippet?.channelTitle ||
-          CHANNEL_NAMES[entry.channelId] ||
-          '',
-        thumbnail:
-          entry.playlistItem.snippet?.thumbnails?.high?.url ||
-          entry.playlistItem.snippet?.thumbnails?.medium?.url ||
-          `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
-        publishedAt,
-      })
-      debug.classified.recorded++
-      continue
-    }
-
-    const snippet = detail.snippet || {}
-    const liveDetails = detail.liveStreamingDetails || {}
-    const status = snippet.liveBroadcastContent // "live" | "upcoming" | "none"
+    const snippet = detail?.snippet || entry.playlistItem.snippet || {}
+    const liveDetails = detail?.liveStreamingDetails || {}
+    const status = snippet.liveBroadcastContent // "live" | "upcoming" | "none" | undefined
 
     const title = snippet.title || entry.playlistItem.snippet?.title || ''
     const channelName =
@@ -294,63 +278,57 @@ export async function GET() {
       snippet.thumbnails?.high?.url ||
       snippet.thumbnails?.medium?.url ||
       `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+    const publishedAt =
+      entry.playlistItem.contentDetails?.videoPublishedAt ||
+      entry.playlistItem.snippet?.publishedAt ||
+      ''
 
     if (status === 'live') {
       streams.push({
-        title,
-        videoId,
-        channelName,
+        title, videoId, channelName,
         startTime: liveDetails.actualStartTime || null,
-        isLive: true,
-        thumbnail,
+        isLive: true, thumbnail,
       })
       debug.classified.live++
     } else if (status === 'upcoming') {
       streams.push({
-        title,
-        videoId,
-        channelName,
+        title, videoId, channelName,
         startTime: liveDetails.scheduledStartTime || null,
-        isLive: false,
-        thumbnail,
+        isLive: false, thumbnail,
       })
       debug.classified.upcoming++
     } else {
-      // status === "none": either a regular upload or a finished live stream
-      const publishedAt =
-        entry.playlistItem.contentDetails?.videoPublishedAt ||
-        entry.playlistItem.snippet?.publishedAt ||
-        ''
-      if (!publishedAt || new Date(publishedAt) < since) {
+      // Finished/regular video. Bucket by age.
+      if (!publishedAt) { debug.classified.skipped++; continue }
+      const pub = new Date(publishedAt)
+      if (pub >= todayCutoff) {
+        recorded.push({ title, videoId, channelName, thumbnail, publishedAt })
+        debug.classified.today++
+      } else if (pub >= weekCutoff) {
+        recordedWeek.push({ title, videoId, channelName, thumbnail, publishedAt })
+        debug.classified.week++
+      } else {
         debug.classified.skipped++
-        continue
       }
-      recorded.push({
-        title,
-        videoId,
-        channelName,
-        thumbnail,
-        publishedAt,
-      })
-      debug.classified.recorded++
     }
   }
 
-  // --- Step 4: Sort and commit to cache ---
+  // --- Step 4: Sort and commit ---
   streams.sort((a, b) => {
     if (a.isLive !== b.isLive) return a.isLive ? -1 : 1
     if (!a.startTime) return 1
     if (!b.startTime) return -1
     return new Date(a.startTime).getTime() - new Date(b.startTime).getTime()
   })
-  recorded.sort(
-    (a, b) =>
-      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  )
+  const newestFirst = (a: Recorded, b: Recorded) =>
+    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  recorded.sort(newestFirst)
+  recordedWeek.sort(newestFirst)
 
   cache.streams = streams
   cache.recorded = recorded
+  cache.recordedWeek = recordedWeek
   cache.time = now
 
-  return NextResponse.json(buildResponse(streams, recorded, debug, now))
+  return NextResponse.json(buildResponse(streams, recorded, recordedWeek, debug, now))
 }
