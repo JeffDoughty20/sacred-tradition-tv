@@ -23,10 +23,6 @@ export default function Home() {
         <div className={styles.massOverlay} />
         <div className={styles.massContent}>
           <p className={styles.tagline}>A Digital Chapel for the Faithful</p>
-          <p className={styles.taglineSecondary}>
-            Watch live Traditional Latin Masses, Gregorian chant adoration, and
-            Catholic devotions streamed daily from faithful parishes worldwide.
-          </p>
         </div>
       </section>
 
@@ -39,15 +35,6 @@ export default function Home() {
         </div>
         <p className={styles.sectionSubtitle}>
           The Traditional Latin Mass &middot; Click any Mass to watch live
-        </p>
-        <p className={styles.sectionIntro}>
-          Sacred Tradition TV aggregates live and recorded Traditional Latin Mass
-          streams from over forty faithful Catholic parishes, religious orders,
-          and seminaries around the world &mdash; including the FSSP, ICRSS, SSPX,
-          Canons Regular, Transalpine Redemptorists, and diocesan communities.
-          Watch the Sunday Latin Mass, daily Mass, sung Vespers, the Holy Rosary,
-          Eucharistic Adoration, and traditional devotions whenever you cannot be
-          physically present at your parish.
         </p>
         <MassSchedule />
       </section>

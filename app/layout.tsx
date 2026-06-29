@@ -3,12 +3,13 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Sacred Tradition Television — A Digital Chapel for the Faithful',
-  description: 'Sacred Tradition TV brings the beauty and reverence of the Traditional Latin Mass and timeless Catholic devotions directly into your home.',
+  title: 'Watch Traditional Latin Mass Live Online | Sacred Tradition TV',
+  description: 'Watch live Traditional Latin Masses streaming daily from FSSP, ICRSS, SSPX, and faithful Catholic parishes worldwide. Free Latin Mass live streams, Gregorian chant adoration, the Holy Rosary, and Catholic devotions.',
+  keywords: ['Traditional Latin Mass', 'Latin Mass live stream', 'watch Latin Mass online', 'FSSP live mass', 'SSPX live mass', 'ICRSS live mass', 'Catholic Mass online', 'Gregorian chant', 'Traditional Catholic'],
   metadataBase: new URL('https://sacredtradition.tv'),
   openGraph: {
-    title: 'Sacred Tradition Television — A Digital Chapel for the Faithful',
-    description: 'Live and recorded Traditional Latin Masses, Gregorian chant adoration, and Catholic devotions from faithful parishes worldwide.',
+    title: 'Watch Traditional Latin Mass Live Online | Sacred Tradition TV',
+    description: 'Live and recorded Traditional Latin Masses streamed daily from forty+ faithful Catholic parishes worldwide. Gregorian chant adoration, the Holy Rosary, and Catholic devotions for the faithful.',
     url: 'https://sacredtradition.tv',
     siteName: 'Sacred Tradition TV',
     type: 'website',
@@ -16,8 +17,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sacred Tradition Television',
-    description: 'A Digital Chapel for the Faithful — Traditional Latin Mass streaming.',
+    title: 'Watch Traditional Latin Mass Live Online | Sacred Tradition TV',
+    description: 'A Digital Chapel for the Faithful — Live Traditional Latin Mass streams worldwide.',
     images: ['/logo.png'],
   },
 }
@@ -29,7 +30,7 @@ const organizationSchema = {
   alternateName: 'Sacred Tradition Television',
   url: 'https://sacredtradition.tv',
   logo: 'https://sacredtradition.tv/logo.png',
-  description: 'A digital chapel for the faithful, broadcasting the Traditional Latin Mass and Catholic devotions to homes worldwide.',
+  description: 'A digital chapel for the faithful, broadcasting live Traditional Latin Mass streams, Gregorian chant adoration, and Catholic devotions from faithful parishes worldwide.',
   email: 'info@sacredtradition.tv',
 }
 
