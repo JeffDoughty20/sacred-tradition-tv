@@ -6,8 +6,19 @@ import { getSchedule } from './lib/schedule'
 // paint for visitors) always gets a real schedule in the HTML.
 export const revalidate = 900
 
+// ---------------------------------------------------------------------------
+// MISSION PROGRESS — update these by hand as gifts come in, then push.
+// ---------------------------------------------------------------------------
+const GOAL = 5000          // Roku channel build + publish
+const RAISED = 25          // total received so far (one-time + monthly to date)
+const MEMBERS = 1          // active Founding Members
+
+const MONTHLY_LINK = 'https://buy.stripe.com/14A6oH3Gz2V53UR66ndjO01'
+const ONE_TIME_LINK = 'https://donate.stripe.com/28EeVdfphanxfDzdyPdjO00'
+
 export default async function Home() {
   const schedule = await getSchedule()
+  const pct = Math.min(100, Math.round((RAISED / GOAL) * 100))
 
   return (
     <main className={styles.page}>
@@ -33,6 +44,53 @@ export default async function Home() {
           <p className={styles.taglineSecondary}>
             Watch live Traditional Latin Masses, Gregorian chant adoration, and
             Catholic devotions streamed daily from faithful parishes worldwide.
+          </p>
+        </div>
+      </section>
+
+      {/* Mission */}
+      <section className={styles.mission}>
+        <div className={styles.missionCard}>
+          <span className={styles.missionIcon}>✠</span>
+          <h2 className={styles.missionTitle}>Our Mission: Bring the Latin Mass to the Television</h2>
+          <div className={styles.missionDivider} />
+
+          <p className={styles.missionText}>
+            For many of the homebound, the elderly, and the sick, opening a website
+            on a phone is hard. Turning on the TV is not. Sacred Tradition TV exists
+            to put the Traditional Latin Mass on the living-room screen &mdash; a
+            Roku channel first, then Apple TV and Fire TV.
+          </p>
+
+          <p className={styles.missionText}>
+            <strong>Where we stand.</strong> Live since May 2026. Over 500 of the
+            faithful found us through Google last quarter. {MEMBERS === 1 ? 'One has' : `${MEMBERS} have`} given.
+            The Roku channel will cost about ${GOAL.toLocaleString()} to build and
+            publish. Forty people giving $10 a month would fund it inside a year.
+          </p>
+
+          <div className={styles.progress} role="progressbar" aria-valuemin={0} aria-valuemax={GOAL} aria-valuenow={RAISED}>
+            <div className={styles.progressTrack}>
+              <div className={styles.progressFill} style={{ width: `${Math.max(pct, 1)}%` }} />
+            </div>
+            <div className={styles.progressLabels}>
+              <span>${RAISED.toLocaleString()} of ${GOAL.toLocaleString()} raised</span>
+              <span>{MEMBERS} Founding {MEMBERS === 1 ? 'Member' : 'Members'}</span>
+            </div>
+          </div>
+
+          <div className={styles.missionButtons}>
+            <a href={MONTHLY_LINK} target="_blank" rel="noopener noreferrer" className={styles.missionPrimary}>
+              Become a Founding Member &middot; $10/month
+            </a>
+            <a href={ONE_TIME_LINK} target="_blank" rel="noopener noreferrer" className={styles.missionSecondary}>
+              Give once
+            </a>
+          </div>
+
+          <p className={styles.missionNote}>
+            Sacred Tradition TV is a project of G3AI Platform LLC. Contributions are
+            not tax-deductible at this time. Monthly gifts can be cancelled any time.
           </p>
         </div>
       </section>
@@ -68,28 +126,30 @@ export default async function Home() {
           <h2 className={styles.donationTitle}>Support Our Mission</h2>
           <div className={styles.donationDividerLine} />
           <p className={styles.donationText}>
-            Sacred Tradition TV is sustained by the generosity of the faithful.
-            Your support helps bring the Traditional Latin Mass and Catholic devotions to the
-            homebound, the isolated, and all who hunger for Tradition.
-          </p>
-          <p className={styles.donationText}>
-            No amount is too small. Every dollar goes directly toward broadcasting the Faith.
+            Sacred Tradition TV is sustained by the generosity of the faithful. Every
+            dollar goes toward broadcasting the Faith &mdash; and toward the Roku
+            channel that will bring the Latin Mass to the living-room television.
           </p>
           <div className={styles.donationButtons}>
             <a
-              href="https://donate.stripe.com/28EeVdfphanxfDzdyPdjO00"
+              href={MONTHLY_LINK}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.donateButton}
             >
-              Make a Donation
+              Give $10 a Month
+            </a>
+            <a
+              href={ONE_TIME_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.donateButtonOutline}
+            >
+              Give Once
             </a>
           </div>
           <p className={styles.donationNote}>
-            Sacred Tradition TV is dedicated to bringing the Traditional Latin Mass
-            to the faithful. Your support helps keep Traditional Latin Mass streams
-            accessible to faithful Catholics worldwide. Contributions are not
-            tax-deductible at this time.
+            Contributions are not tax-deductible at this time.
           </p>
         </div>
       </section>
