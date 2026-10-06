@@ -1,7 +1,14 @@
 import styles from './page.module.css'
 import MassSchedule from './MassSchedule'
+import { getSchedule } from './lib/schedule'
 
-export default function Home() {
+// Re-render on the server at most every 15 minutes, so Google (and the first
+// paint for visitors) always gets a real schedule in the HTML.
+export const revalidate = 900
+
+export default async function Home() {
+  const schedule = await getSchedule()
+
   return (
     <main className={styles.page}>
       {/* Watermark background */}
@@ -43,13 +50,14 @@ export default function Home() {
         <p className={styles.sectionIntro}>
           Sacred Tradition TV aggregates live and recorded Traditional Latin Mass
           streams from over forty faithful Catholic parishes, religious orders,
-          and seminaries around the world &mdash; including the FSSP, ICRSS, SSPX,
-          Canons Regular, Transalpine Redemptorists, and diocesan communities.
-          Watch the Sunday Latin Mass, daily Mass, sung Vespers, the Holy Rosary,
-          Eucharistic Adoration, and traditional devotions whenever you cannot be
-          physically present at your parish.
+          and seminaries around the world &mdash; including the{' '}
+          <a href="/masses/sspx">SSPX</a>, FSSP, ICRSS, Canons Regular, Transalpine
+          Redemptorists, and diocesan communities. Watch the Sunday Latin Mass,
+          daily Mass, sung Vespers, the Holy Rosary, Eucharistic Adoration, and
+          traditional devotions whenever you cannot be physically present at your
+          parish.
         </p>
-        <MassSchedule />
+        <MassSchedule initialData={schedule} />
       </section>
 
       {/* Donation section */}

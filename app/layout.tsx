@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description: 'Watch live Traditional Latin Masses streaming daily from FSSP, ICRSS, SSPX, and faithful Catholic parishes worldwide. Free Latin Mass live streams, Gregorian chant adoration, the Holy Rosary, and Catholic devotions.',
   keywords: ['Traditional Latin Mass', 'Latin Mass live stream', 'watch Latin Mass online', 'FSSP live mass', 'SSPX live mass', 'ICRSS live mass', 'Catholic Mass online', 'Gregorian chant', 'Traditional Catholic'],
   metadataBase: new URL('https://sacredtradition.tv'),
+  alternates: { canonical: '/' },
   openGraph: {
     title: 'Watch Traditional Latin Mass Live Online | Sacred Tradition TV',
     description: 'Live and recorded Traditional Latin Masses streamed daily from forty+ faithful Catholic parishes worldwide. Gregorian chant adoration, the Holy Rosary, and Catholic devotions for the faithful.',
