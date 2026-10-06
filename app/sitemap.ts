@@ -8,5 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/`, lastModified: now, changeFrequency: 'hourly', priority: 1.0 },
     { url: `${base}/masses`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${base}/masses/sspx`, lastModified: now, changeFrequency: 'hourly', priority: 0.9 },
+    { url: `${base}/masses/fssp`, lastModified: now, changeFrequency: 'hourly', priority: 0.9 },
+    { url: `${base}/masses/icrss`, lastModified: now, changeFrequency: 'hourly', priority: 0.9 },
   ]
 }

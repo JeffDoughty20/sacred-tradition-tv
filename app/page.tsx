@@ -51,7 +51,8 @@ export default async function Home() {
           Sacred Tradition TV aggregates live and recorded Traditional Latin Mass
           streams from over forty faithful Catholic parishes, religious orders,
           and seminaries around the world &mdash; including the{' '}
-          <a href="/masses/sspx">SSPX</a>, FSSP, ICRSS, Canons Regular, Transalpine
+          <a href="/masses/sspx">SSPX</a>, <a href="/masses/fssp">FSSP</a>,{' '}
+          <a href="/masses/icrss">ICRSS</a>, Canons Regular, Transalpine
           Redemptorists, and diocesan communities. Watch the Sunday Latin Mass,
           daily Mass, sung Vespers, the Holy Rosary, Eucharistic Adoration, and
           traditional devotions whenever you cannot be physically present at your
