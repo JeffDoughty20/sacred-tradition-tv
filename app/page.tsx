@@ -9,9 +9,10 @@ export const revalidate = 900
 // ---------------------------------------------------------------------------
 // MISSION PROGRESS — update these by hand as gifts come in, then push.
 // ---------------------------------------------------------------------------
-const GOAL = 5000          // Roku channel build + publish
-const RAISED = 25          // total received so far (one-time + monthly to date)
-const MEMBERS = 1          // active Founding Members
+const GOAL: number = 5000          // Roku channel build + publish
+const RAISED: number = 75          // total received so far, all gifts (use the gross amount, not after fees)
+const SUPPORTERS: number = 3       // people who have given anything, one-time or monthly
+const MEMBERS: number = 0          // of those, how many are on the $10/month Founding Member plan
 
 const MONTHLY_LINK = 'https://buy.stripe.com/14A6oH3Gz2V53UR66ndjO01'
 const ONE_TIME_LINK = 'https://donate.stripe.com/28EeVdfphanxfDzdyPdjO00'
@@ -64,7 +65,7 @@ export default async function Home() {
 
           <p className={styles.missionText}>
             <strong>Where we stand.</strong> Live since May 2026. Over 500 of the
-            faithful found us through Google last quarter. {MEMBERS === 1 ? 'One has' : `${MEMBERS} have`} given.
+            faithful found us through Google last quarter. {SUPPORTERS === 1 ? 'One has' : `${SUPPORTERS} have`} given so far.
             The Roku channel will cost about ${GOAL.toLocaleString()} to build and
             publish. Forty people giving $10 a month would fund it inside a year.
           </p>
@@ -75,7 +76,10 @@ export default async function Home() {
             </div>
             <div className={styles.progressLabels}>
               <span>${RAISED.toLocaleString()} of ${GOAL.toLocaleString()} raised</span>
-              <span>{MEMBERS} Founding {MEMBERS === 1 ? 'Member' : 'Members'}</span>
+              <span>
+                {SUPPORTERS} {SUPPORTERS === 1 ? 'supporter' : 'supporters'}
+                {MEMBERS > 0 && ` · ${MEMBERS} Founding ${MEMBERS === 1 ? 'Member' : 'Members'}`}
+              </span>
             </div>
           </div>
 
@@ -89,8 +93,8 @@ export default async function Home() {
           </div>
 
           <p className={styles.missionNote}>
-            Sacred Tradition TV is a project of G3AI Platform LLC. Contributions are
-            not tax-deductible at this time. Monthly gifts can be cancelled any time.
+            Contributions are not tax-deductible at this time. Monthly gifts can be
+            cancelled any time.
           </p>
         </div>
       </section>
