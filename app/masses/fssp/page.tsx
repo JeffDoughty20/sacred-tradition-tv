@@ -82,7 +82,7 @@ export default async function FsspPage() {
         </p>
         <p className={styles.pageNote}>
           Live, upcoming, and recently recorded Masses from FSSP parishes and apostolates in the
-          United States, Canada, Rome, and Poland. Sunday High Mass, daily Low Mass, sung Vespers,
+          United States, Canada, Rome, Poland, and the Netherlands. Sunday High Mass, daily Low Mass, sung Vespers,
           Benediction, and the Holy Rosary are streamed as each parish goes live. Times shown are
           in your local time zone. Click any Mass to watch it here, or browse the parish list
           below to visit a channel directly.

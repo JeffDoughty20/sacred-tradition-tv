@@ -23,6 +23,7 @@ const channels = {
     { name: 'FSSP Ottawa, Canada', url: 'https://www.youtube.com/channel/UC-k7cYplIu_EGCi7iKsLwig/live' },
     { name: 'FSSP Rome', url: 'https://www.youtube.com/channel/UClAtfCutuTEauRbJIUCVlcA/live' },
     { name: 'FSSP Krakow, Poland', url: 'https://www.youtube.com/channel/UCYWH7ffSj122xg4FLC9bz_g/live' },
+    { name: 'FSSP Amsterdam, Netherlands (Sint-Agneskerk)', url: 'https://www.youtube.com/channel/UCKouktARzJObJ2ofeb80gqA/live' },
   ],
   icrss: [
     { name: 'ICRSS Chicago, IL', url: 'https://www.youtube.com/channel/UCBb7H5dkIrNjCmwBSwUX9Zw/live' },

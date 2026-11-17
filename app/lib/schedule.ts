@@ -55,7 +55,7 @@ export const ORDERS = {
       'UC1nuBPRlL4Y-e6dsN_HQbOA', 'UCDiftFDDgXrRDSIeffAtY4A', 'UCp3fLkScbe6hjEBncVk-EoA',
       'UCowKIe4fG3k7UNUGX-6pvgg', 'UCItp3GIpTS67DvqOLuWuWig', 'UCKyyBg-7STnPDO_-oEQWY0g',
       'UCGphbd3fgXviaxp5DjscYkw', 'UCy7sVkgogsfm3tBpWyNHhEQ', 'UC-k7cYplIu_EGCi7iKsLwig',
-      'UClAtfCutuTEauRbJIUCVlcA', 'UCYWH7ffSj122xg4FLC9bz_g',
+      'UClAtfCutuTEauRbJIUCVlcA', 'UCYWH7ffSj122xg4FLC9bz_g', 'UCKouktARzJObJ2ofeb80gqA',
     ],
   },
   icrss: {
@@ -105,6 +105,7 @@ export const CHANNEL_NAMES: Record<string, string> = {
   'UC-k7cYplIu_EGCi7iKsLwig': 'FSSP Ottawa, Canada',
   'UClAtfCutuTEauRbJIUCVlcA': 'FSSP Rome',
   'UCYWH7ffSj122xg4FLC9bz_g': 'FSSP Krakow, Poland',
+  'UCKouktARzJObJ2ofeb80gqA': 'FSSP Amsterdam, Netherlands (Sint-Agneskerk)',
   'UCBb7H5dkIrNjCmwBSwUX9Zw': 'ICRSS Chicago, IL',
   'UCV59wZ51HxRpXVsF-zsXbGg': 'ICRSS St. Louis, MO',
   'UCT-aKExUFTkWeTymsDXi_yA': 'ICRSS Detroit, MI',
